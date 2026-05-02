@@ -1,11 +1,12 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import ProjectList from "@/ProjectList.vue";
+</script>
 
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <main class="max-w-7xl mx-auto p-8 flex flex-col items-center">
+    <h1 class="text-3xl font-bold text-slate-800 mb-4">My Portfolio</h1>
+    <ProjectList/>
+  </main>
 </template>
 
 <style scoped></style>
