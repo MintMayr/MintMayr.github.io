@@ -1,6 +1,20 @@
 <script setup lang="ts">
 import ProjectItem from "@/ProjectItem.vue";
-const projects = [
+
+interface TagData {
+  text: string;
+  color?: 'blue' | 'teal' | 'yellow' | 'red' | 'green' | 'gray' | 'violet';
+}
+
+interface Project {
+  id: number;
+  title: string;
+  description: string;
+  imageUrl: string;
+  tags: TagData[];
+}
+
+const projects: Project[] = [
   {
     id: 1,
     title: 'LiDARC',
