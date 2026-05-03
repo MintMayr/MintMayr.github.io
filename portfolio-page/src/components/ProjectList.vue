@@ -1,18 +1,6 @@
 <script setup lang="ts">
-import ProjectItem from "@/ProjectItem.vue";
-
-interface TagData {
-  text: string;
-  color?: 'blue' | 'teal' | 'yellow' | 'red' | 'green' | 'gray' | 'violet';
-}
-
-interface Project {
-  id: number;
-  title: string;
-  description: string;
-  imageUrl: string;
-  tags: TagData[];
-}
+import ProjectItem from "@/components/ProjectItem.vue";
+import type {Project} from "@/types/types.ts";
 
 const projects: Project[] = [
   {
@@ -44,10 +32,7 @@ const projects: Project[] = [
   <div class="flex flex-col w-full divide-y-2 divide-slate-300">
     <div v-for="project in projects" :key="project.id" class="py-4">
       <ProjectItem
-        :title="project.title"
-        :description="project.description"
-        :imageUrl="project.imageUrl"
-        :tags="project.tags"
+        :project="project"
       />
     </div>
   </div>

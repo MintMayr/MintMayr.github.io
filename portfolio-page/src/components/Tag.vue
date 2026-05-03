@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import type {TagData} from "@/types/types.ts";
 const props = defineProps<{
-  text: string;
-  color?: 'blue' | 'teal' | 'yellow' | 'red' | 'green' | 'gray' | 'violet';
+  tag: TagData;
 }>();
 const colorVariants: Record<string, string> = {
   blue: 'bg-blue-100 text-blue-800',
@@ -15,7 +15,7 @@ const colorVariants: Record<string, string> = {
 };
 
 const activeColorClass = computed(() =>{
-  return colorVariants[props.color || 'gray'];
+  return colorVariants[props.tag.color || 'gray'];
 });
 </script>
 
@@ -25,6 +25,6 @@ const activeColorClass = computed(() =>{
     activeColorClass
     ]"
         >
-    {{ text }}
+    {{ tag.text }}
   </span>
 </template>
