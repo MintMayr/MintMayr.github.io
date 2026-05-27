@@ -72,7 +72,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="relative w-full mx-auto py-24 overflow-hidden">
+  <div class="relative w-full mx-auto py-12 overflow-hidden">
     <div class="text-3xl font-bold text-slate-800 dark:text-slate-100 mb-4">
       Education
     </div>
@@ -82,7 +82,7 @@ onMounted(() => {
       :key="item.id"
       :data-id="item.id"
       ref="itemRefs"
-      class="relative flex items-stretch justify-between w-full mb-40 min-h-50"
+      class="relative flex items-stretch justify-between w-full mb-30 min-h-50"
       :class="index % 2 === 0 ? 'flex-row-reverse' : ''">
 
       <div class="flex-1 w-full"></div>
