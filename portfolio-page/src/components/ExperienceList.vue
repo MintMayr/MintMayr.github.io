@@ -1,0 +1,32 @@
+<script setup lang="ts">
+
+import ExperienceItem from "@/components/ExperienceItem.vue";
+import type {Experience} from "@/types/types.ts";
+
+const experiences: Experience[] = [
+  {
+    id: 1,
+    name: 'Siemens Mobility Austria GmbH',
+    start_date: new Date('2023-05-15T10:00:00'),
+    end_date: new Date('2026-08-31T10:00:00'),
+    summary: 'This is a test summary!',
+    tags: [
+      { text: 'Python', color: 'blue' },
+      { text: 'Vue.js', color: 'green' },
+      { text: 'Project Management', color: 'brown' },
+    ],
+  },
+];
+</script>
+
+<template>
+  <div class="flex flex-col w-full divide-y-2 divide-slate-300">
+    <div class="text-3xl font-bold text-slate-800 mb-4">Work Experience</div>
+    <div v-for="experience in experiences" :key="experience.id" class="py-4">
+      <ExperienceItem
+        :experience="experience"
+      />
+    </div>
+    <div></div>
+  </div>
+</template>

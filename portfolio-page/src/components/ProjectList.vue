@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import ProjectItem from "@/components/ProjectItem.vue";
 import type {Project} from "@/types/types.ts";
-
+{}
 const projects: Project[] = [
   {
     id: 1,
@@ -29,6 +29,7 @@ const projects: Project[] = [
 </script>
 
 <template>
+  <div class="text-3xl font-bold text-slate-800 mb-4 w-full">My Projects</div>
   <div class="flex flex-col w-full divide-y-2 divide-slate-300">
     <div v-for="project in projects" :key="project.id" class="py-4">
       <ProjectItem

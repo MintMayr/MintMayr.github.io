@@ -12,6 +12,7 @@ const colorVariants: Record<string, string> = {
   green: 'bg-green-100 text-green-800',
   gray: 'bg-gray-100 text-gray-800',
   violet: 'bg-violet-100 text-violet-800',
+  brown: 'bg-stone-200 text-stone-800',
 };
 
 const activeColorClass = computed(() =>{
