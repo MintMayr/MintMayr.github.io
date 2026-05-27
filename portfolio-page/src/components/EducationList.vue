@@ -61,7 +61,7 @@ onMounted(() => {
     },
     {
       rootMargin: "0px",
-      threshold: 0.15,
+      threshold: 1.0,
     }
   );
 
@@ -73,8 +73,10 @@ onMounted(() => {
 
 <template>
   <div class="relative w-full mx-auto py-24 overflow-hidden">
-    <div class="text-3xl font-bold text-slate-800 mb-4">Education</div>
-    <div class="absolute top-0 bottom-0 left-1/2 w-0.5 bg-slate-300 transform -translate-x-1/2"></div>
+    <div class="text-3xl font-bold text-slate-800 dark:text-slate-100 mb-4">
+      Education
+    </div>
+    <div class="absolute top-0 bottom-0 left-1/2 w-0.5 bg-slate-300 dark:bg-slate-700 transform -translate-x-1/2 transition-colors mask-[linear-gradient(to_bottom,transparent,black_5%,black_95%,transparent)] [-webkit-mask-image:linear-gradient(to_bottom,transparent,black_5%,black_95%,transparent)]"></div>
     <div
       v-for="(item, index) in sortedEducations"
       :key="item.id"
@@ -87,8 +89,9 @@ onMounted(() => {
 
       <div class="z-10 flex flex-col items-center w-24 shrink-0 transition-all duration-700 ease-out"
            :class="visibleItems[item.id] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
-        <div class="w-6 h-6 bg-slate-50 border-[3px] border-blue-500 rounded-full shrink-0 relative flex justify-center">
-          <span class="absolute bottom-full mb-2 text-xs font-bold text-slate-800 bg-slate-50 px-2 py-0.5 rounded leading-none whitespace-nowrap">
+
+        <div class="w-6 h-6 bg-slate-50 dark:bg-slate-900 border-[3px] border-blue-500 rounded-full shrink-0 relative flex justify-center transition-colors">
+          <span class="absolute bottom-full mb-2 text-xs font-bold text-slate-800 dark:text-slate-100 bg-slate-50 dark:bg-slate-900 px-2 py-0.5 rounded leading-none whitespace-nowrap transition-colors">
             {{ formatDate(item.end_date) }}
           </span>
         </div>
@@ -98,7 +101,7 @@ onMounted(() => {
 
         <div class="w-6 h-6 bg-blue-500 rounded-full shrink-0 relative flex justify-center transition-opacity duration-500 delay-700"
              :class="visibleItems[item.id] ? 'opacity-100' : 'opacity-0'">
-          <span class="absolute top-full mt-2 text-xs font-medium text-slate-500 bg-slate-50 px-2 py-0.5 rounded leading-none whitespace-nowrap">
+          <span class="absolute top-full mt-2 text-xs font-medium text-slate-800 dark:text-slate-100 bg-slate-50 dark:bg-slate-900 px-2 py-0.5 rounded leading-none whitespace-nowrap transition-colors">
             {{ formatDate(item.start_date) }}
           </span>
         </div>
