@@ -1,26 +1,41 @@
 <script setup lang="ts" xmlns="http://www.w3.org/1999/html">
 import ProjectItem from "@/components/ProjectItem.vue";
 import type {Project} from "@/types/types.ts";
-import { ChevronDownIcon , ChevronUpIcon} from "@heroicons/vue/24/outline"
+import { ChevronDownIcon } from "@heroicons/vue/24/outline"
 import {ref} from "vue";
+import {Github} from "@thesvg/vue";
 
 const projects: Project[] = [
   {
     id: 1,
     title: 'LiDARC',
-    description: 'This is a brief description of the project. It outlines the core features and the problem it solves.',
-    imageUrl: import.meta.env.BASE_URL + 'lidarc_logo.png',
+    description: 'This system provides an interactive platform for uploading, processing, and comparing\n' +
+      'pointcloud sets with a focus on efficient analysis and clear visual feedback. Users can\n' +
+      'submit data through a web-based interface, trigger a comparison, and explore the resulting\n' +
+      'analyses through interactive visualizations. The system is designed to handle\n' +
+      'computationally intensive tasks in the background, allowing users to continue working\n' +
+      'without interruption while results are generated asynchronously. Created Results can be\n' +
+      'viewed and additionally downloaded as a Report.',
+    imageUrl: import.meta.env.BASE_URL + 'lidarc_logo_nobg.png',
     tags: [
-      { text: 'Vue.js', color: 'blue' },
-      { text: 'Tailwind', color: 'green' },
-      { text: 'TypeScript', color: 'red' },
+      { text: 'Spring Boot', color: 'green' },
+      { text: 'Angular', color: 'red' },
+      { text: 'TypeScript', color: 'blue' },
+      { text: 'RabbitMQ', color: 'amber' },
+      { text: 'Kubernetes', color: 'blue' },
+      { text: 'MinIO', color: 'rose' },
+      { text: 'Python', color: 'emerald' },
+      { text: 'Docker', color: 'blue' },
+      { text: 'Redis', color: 'indigo' },
+    ],
+    links: [
+      { href: 'https://github.com/BFW-Remote-Sensing/LiDARC', logo: Github},
     ]
   },
   {
     id: 2,
     title: 'My project',
     description: 'A real-time weather tracking application using external APIs and interactive charts.',
-    imageUrl: import.meta.env.BASE_URL + 'lidarc_logo.png',
     tags: [
       { text: 'Vue.js', color: 'blue' },
       { text: 'Tailwind', color: 'green' },
@@ -29,7 +44,7 @@ const projects: Project[] = [
   },
 ];
 
-const isOpen = ref(false);
+const isOpen = ref(true);
 const toggleProjects = () => {
   isOpen.value = !isOpen.value;
 };

@@ -8,7 +8,7 @@ const educations: Education[] = [
   {
     id: 1,
     institute: "TU Wien",
-    imageUrl: import.meta.env.BASE_URL + "TU_logo.png",
+    imageUrl: import.meta.env.BASE_URL + "TU_logo_transparent.png",
     grade_of_education: "Bachelor of Science - BSc, Computer Science",
     start_date: new Date("2021-10-01T10:00:00"),
     end_date: new Date("2025-09-01T10:00:00"),
@@ -17,7 +17,7 @@ const educations: Education[] = [
   {
     id: 2,
     institute: "TU Wien",
-    imageUrl: import.meta.env.BASE_URL + "TU_logo.png",
+    imageUrl: import.meta.env.BASE_URL + "TU_logo_transparent.png",
     grade_of_education: "Master of Science - MSc, Computer Science",
     start_date: new Date("2025-10-01T10:00:00"),
     end_date: undefined,
@@ -26,7 +26,7 @@ const educations: Education[] = [
   {
     id: 3,
     institute: "HTL Saalfelden",
-    imageUrl: import.meta.env.BASE_URL + "htl-logo.jpg",
+    imageUrl: import.meta.env.BASE_URL + "htl-logo_transparent.png",
     grade_of_education: "Matura, Elektrotechnik",
     start_date: new Date("2015-09-01T10:00:00"),
     end_date: new Date("2020-06-01T10:00:00"),

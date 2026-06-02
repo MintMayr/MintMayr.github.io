@@ -18,6 +18,8 @@
   },
   "dependencies": {
     "@heroicons/vue": "^2.2.0",
+    "@thesvg/vue": "^3.0.10",
+    "thesvg": "^3.0.10",
     "vue": "^3.5.32"
   },
   "devDependencies": {
