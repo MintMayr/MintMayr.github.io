@@ -1,0 +1,11 @@
+{
+  "education": {
+    "tu_wien_bsc": "Bachelor of Science - BSc, Computer Science",
+    "tu_wien_msc": "Master of Science - MSc, Computer Science",
+    "htl_saalfelden": "Graduation diploma equivalent to British A-Levels",
+    "institutes": {
+      "tu_wien": "TU Wien",
+      "htl_saalfelden": "HTL Saalfelden"
+    }
+  }
+}

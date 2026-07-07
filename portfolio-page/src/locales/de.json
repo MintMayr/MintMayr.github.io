@@ -1,0 +1,17 @@
+{
+  "education": {
+    "tu_wien_bsc": "Bachelor of Science - BSc, Informatik",
+    "tu_wien_msc": "Master of Science - MSc, Informatik",
+    "htl_saalfelden": "Matura",
+    "institutes": {
+      "tu_wien": "TU Wien",
+      "htl_saalfelden": "HTL Saalfelden"
+    }
+  },
+  "experience": {
+
+  },
+  "project": {
+
+  }
+}
