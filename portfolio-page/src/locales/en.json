@@ -7,5 +7,55 @@
       "tu_wien": "TU Wien",
       "htl_saalfelden": "HTL Saalfelden"
     }
+  },
+  "experience": {
+    "siemens": {
+      "company": "Siemens Mobility Austria GmbH",
+      "role": "Working Student Technical - System Architect",
+      "summary": "This is a test summary!"
+    },
+    "tu_wien": {
+      "company": "TU Wien",
+      "role": "Tutor (Advanced) Software Engineering Project",
+      "summary": "Supporting students groups throughout the semester to develop their Software Engineering Project. Tutoring both master and bachelor students."
+    },
+    "wastics": {
+      "company": "Wastics GmbH",
+      "role": "Working Student - Software Developer",
+      "summary": "Worked in a small team and got first-hand backend and frontend experience with Spring Boot and Angular. While mainly focused on the backend from the get go I also got great insights into Angular in combination with frontend languages such as HTML, CSS and Typescript. Furthermore i configured the keycloak realms and helped with deployment on docker."
+    },
+    "armed_forces": {
+      "company": "Austrian Armed Forces (Österreichisches Bundesheer)",
+      "role": "Military Service",
+      "summary": "Mandatory basic military service at the Austrian Armed Forces trained as a paramedic for six months. Plus three months of voluntary service at the Covid center. Active militiaman at Austrian Armed Forces."
+    }
+  },
+  "project": {
+    "lidarc": {
+      "title": "LiDARC",
+      "description": "This system provides an interactive platform for uploading, processing, and comparing\n pointcloud sets with a focus on efficient analysis and clear visual feedback. Users can \n submit data through a web-based interface, trigger a comparison, and explore the resulting \nanalyses through interactive visualizations. The system is designed to handle\ncomputationally intensive tasks in the background, allowing users to continue working\nwithout interruption while results are generated asynchronously. Created Results can be\nviewed and additionally downloaded as a Report."
+    }
+  },
+  "tags": {
+    "paramedic": "Paramedic",
+    "stress_management": "Stress Management",
+    "teamwork": "Teamwork",
+    "communication": "Communication",
+    "project_management": "Project Management",
+    "scrum": "Scrum",
+    "spring_boot": "Spring Boot",
+    "angular": "Angular",
+    "vuejs": "Vue.js",
+    "java": "Java",
+    "python": "Python",
+    "typescript": "TypeScript",
+    "html_css": "HTML & CSS",
+    "tailwind": "Tailwind",
+    "hibernate": "Hibernate",
+    "rabbitmq": "RabbitMQ",
+    "kubernetes": "Kubernetes",
+    "docker": "Docker",
+    "redis": "Redis",
+    "minio": "MinIO"
   }
 }

@@ -9,9 +9,53 @@
     }
   },
   "experience": {
-
+    "siemens": {
+      "company": "Siemens Mobility Austria GmbH",
+      "role": "Werkstudent Technik - Systemarchitekt",
+      "summary": "Dies ist eine Testzusammenfassung!"
+    },
+    "tu_wien": {
+      "company": "TU Wien",
+      "role": "Tutor (Advanced) - Software Engineering Project",
+      "summary": "Unterstützung von Studierendengruppen während des gesamten Semesters bei der Entwicklung ihres Software Engineering Projekts. Betreuung von sowohl Master- als auch Bachelorstudierenden."
+    },
+    "wastics": {
+      "company": "Wastics GmbH",
+      "role": "Werkstudent - Softwareentwickler",
+      "summary": "Arbeit in einem kleinen Team mit ersten praktischen Backend- und Frontend-Erfahrungen in Spring Boot und Angular. Obwohl der Fokus von Beginn an auf der Backend-Entwicklung lag, konnte ich auch wertvolle Einblicke in Angular in Kombination mit Frontend-Technologien wie HTML, CSS und TypeScript gewinnen. Des Weiteren habe ich Keycloak-Realms konfiguriert und beim Deployment über Docker unterstützt."
+    },
+    "armed_forces": {
+      "company": "Österreichisches Bundesheer",
+      "role": "Präsenzdienst",
+      "summary": "Sechsmonatiger verpflichtender Grundwehrdienst beim Österreichischen Bundesheer mit Ausbildung zum Sanitäter. Zusätzlich drei Monate freiwilliger Einsatz im Covid-Zentrum. Derzeit aktiver Milizsoldat beim Österreichischen Bundesheer."
+    }
   },
   "project": {
-
+    "lidarc": {
+      "title": "LiDARC",
+      "description": "Dieses System bietet eine interaktive Plattform für das Hochladen, Verarbeiten und Vergleichen von Punktwolken mit Fokus auf eine effiziente Analyse und klares visuelles Feedback. Nutzer können Daten über eine webbasierte Benutzeroberfläche übermitteln, Vergleiche starten und die resultierenden Analysen mittels interaktiver Visualisierungen erkunden. Das System ist so konzipiert, dass rechenintensive Aufgaben im Hintergrund verarbeitet werden. Dadurch können Nutzer ohne Unterbrechung weiterarbeiten, während die Ergebnisse asynchron generiert werden. Die erstellten Resultate können direkt eingesehen oder zusätzlich als Bericht heruntergeladen werden."
+    }
+  },
+  "tags": {
+    "paramedic": "Sanitäter",
+    "stress_management": "Stressmanagement",
+    "teamwork": "Teamfähigkeit",
+    "communication": "Kommunikationsfähigkeit",
+    "project_management": "Projektmanagement",
+    "scrum": "Scrum",
+    "spring_boot": "Spring Boot",
+    "angular": "Angular",
+    "vuejs": "Vue.js",
+    "java": "Java",
+    "python": "Python",
+    "typescript": "TypeScript",
+    "html_css": "HTML & CSS",
+    "tailwind": "Tailwind",
+    "hibernate": "Hibernate",
+    "rabbitmq": "RabbitMQ",
+    "kubernetes": "Kubernetes",
+    "docker": "Docker",
+    "redis": "Redis",
+    "minio": "MinIO"
   }
 }

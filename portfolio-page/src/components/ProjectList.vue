@@ -8,25 +8,19 @@ import {Github} from "@thesvg/vue";
 const projects: Project[] = [
   {
     id: 1,
-    title: 'LiDARC',
-    description: 'This system provides an interactive platform for uploading, processing, and comparing\n' +
-      'pointcloud sets with a focus on efficient analysis and clear visual feedback. Users can\n' +
-      'submit data through a web-based interface, trigger a comparison, and explore the resulting\n' +
-      'analyses through interactive visualizations. The system is designed to handle\n' +
-      'computationally intensive tasks in the background, allowing users to continue working\n' +
-      'without interruption while results are generated asynchronously. Created Results can be\n' +
-      'viewed and additionally downloaded as a Report.',
+    title: 'project.lidarc.title',
+    description: 'project.lidarc.description',
     imageUrl: import.meta.env.BASE_URL + 'lidarc_logo_nobg.png',
     tags: [
-      { text: 'Spring Boot', color: 'green' },
-      { text: 'Angular', color: 'red' },
-      { text: 'TypeScript', color: 'blue' },
-      { text: 'RabbitMQ', color: 'amber' },
-      { text: 'Kubernetes', color: 'blue' },
-      { text: 'MinIO', color: 'rose' },
-      { text: 'Python', color: 'emerald' },
-      { text: 'Docker', color: 'blue' },
-      { text: 'Redis', color: 'indigo' },
+      { text: 'tags.spring_boot', color: 'green' },
+      { text: 'tags.angular', color: 'red' },
+      { text: 'tags.typescript', color: 'blue' },
+      { text: 'tags.rabbitmq', color: 'amber' },
+      { text: 'tags.kubernetes', color: 'blue' },
+      { text: 'tags.minio', color: 'rose' },
+      { text: 'tags.python', color: 'emerald' },
+      { text: 'tags.docker', color: 'blue' },
+      { text: 'tags.redis', color: 'indigo' },
     ],
     links: [
       { href: 'https://github.com/BFW-Remote-Sensing/LiDARC', logo: Github},
@@ -37,9 +31,9 @@ const projects: Project[] = [
     title: 'My project',
     description: 'A real-time weather tracking application using external APIs and interactive charts.',
     tags: [
-      { text: 'Vue.js', color: 'blue' },
-      { text: 'Tailwind', color: 'green' },
-      { text: 'TypeScript', color: 'red' },
+      { text: 'tags.vuejs', color: 'blue' },
+      { text: 'tags.tailwind', color: 'green' },
+      { text: 'tags.typescript', color: 'red' },
     ]
   },
 ];

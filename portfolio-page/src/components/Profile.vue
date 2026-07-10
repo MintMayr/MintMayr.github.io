@@ -6,9 +6,8 @@ import {Github, Linkedin} from "@thesvg/vue";
 const phrases = [
   { text: 'Level: 25...', font: "'Bytesized', monospace" },
   { text: 'Software Engineer 💻', font: "'VT323', monospace" },
-  { text: 'I <3 to travel ✈️', font: "'Space Mono', monospace" },
-  { text: 'I 💝 Humanity', font: "'VT323', monospace" },
-  { text: 'I like videogames 🎮', font: "'Bytesized', monospace" },
+  { text: 'I like to travel ✈️', font: "'Space Mono', monospace" },
+  { text: 'I like video games 🎮', font: "'Bytesized', monospace" },
   { text: '💚 Nature', font: "'VT323', monospace" },
   { text: 'Taking 📷 of Animals', font: "'Space Mono', monospace" },
 ]

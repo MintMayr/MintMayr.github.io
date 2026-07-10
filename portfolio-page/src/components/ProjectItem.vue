@@ -3,6 +3,9 @@ import Tag from "@/components/Tag.vue";
 import type {Project} from "@/types/types.ts";
 import { ChevronDownIcon } from "@heroicons/vue/24/outline"
 import {ref} from "vue";
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n();
 defineProps<{
   project: Project;
 }>();
@@ -48,7 +51,7 @@ const isExpanded = ref(false);
           <div class="flex flex-col gap-4 pb-6">
             <div class="flex justify-between items-start gap-4">
               <h3 class="text-xl font-bold text-gray-900 dark:text-slate-100">
-                {{ project.title }}
+                {{ t(project.title) }}
               </h3>
               <div v-if="project.links && project.links.length > 0" class="flex flex-wrap justify-center gap-3">
                 <a
@@ -63,7 +66,7 @@ const isExpanded = ref(false);
               </div>
             </div>
             <p class ="text-gray-600 dark:text-slate-300 text-base pb-3">
-              {{ project.description}}
+              {{ t(project.description) }}
             </p>
 
           </div>
@@ -73,6 +76,7 @@ const isExpanded = ref(false);
       <div class="flex flex-wrap gap-2 mt-auto">
         <Tag
           v-for="tag in project.tags"
+          :key="tag.text"
           :tag="tag"
         />
       </div>
