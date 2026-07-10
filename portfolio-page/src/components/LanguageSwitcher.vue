@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { computed } from 'vue'
 
 const { locale } = useI18n()
 const switchLanguage = (newLang: 'en' | 'de') => {
@@ -14,18 +13,16 @@ const switchLanguage = (newLang: 'en' | 'de') => {
     <button
       @click="switchLanguage('en')"
       class="cursor-pointer"
-      :class="locale === 'en' ? 'font-bold text-blue-500' : 'text-slate-500'"
+      :class="locale === 'en' ? 'font-bold text-blue-500' : 'text-slate-800 dark:text-slate-200'"
     >
       EN
     </button>
     <button
       @click="switchLanguage('de')"
       class="cursor-pointer"
-      :class="locale === 'de' ? 'font-bold text-blue-500' : 'text-slate-500'"
+      :class="locale === 'de' ? 'font-bold text-blue-500' : 'text-slate-800 dark:text-slate-200'"
     >
       DE
     </button>
   </div>
 </template>
-
-<style scoped></style>

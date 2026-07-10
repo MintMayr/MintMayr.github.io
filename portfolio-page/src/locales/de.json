@@ -1,4 +1,8 @@
 {
+  "general": {
+    "present": "HEUTE",
+    "graduation": "Abschluss"
+  },
   "education": {
     "tu_wien_bsc": "Bachelor of Science - BSc, Informatik",
     "tu_wien_msc": "Master of Science - MSc, Informatik",
@@ -28,7 +32,10 @@
       "company": "Österreichisches Bundesheer",
       "role": "Präsenzdienst",
       "summary": "Sechsmonatiger verpflichtender Grundwehrdienst beim Österreichischen Bundesheer mit Ausbildung zum Sanitäter. Zusätzlich drei Monate freiwilliger Einsatz im Covid-Zentrum. Derzeit aktiver Milizsoldat beim Österreichischen Bundesheer."
-    }
+    },
+    "part_time": "Teilzeit",
+    "full_time": "Vollzeit",
+    "internship": "Praktikum"
   },
   "project": {
     "lidarc": {

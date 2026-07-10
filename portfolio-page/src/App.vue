@@ -33,22 +33,27 @@ onMounted(() => {
 </script>
 
 <template>
-  <main class="max-w-360 mx-auto p-4 pb-64 flex flex-col md:flex-row gap-6 items-start">
-    <button
-      @click="toggleTheme"
-      class="cursor-pointer absolute top-4 right-4 p-2 rounded-full flex flex-col justify-center items-center gap-2 bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors"
-    >
-      <SunIcon v-if="isDark" class="w-8 h-8" />
-      <MoonIcon v-if="!isDark" class="w-8 h-8" />
-      {{ isDark ? 'Light' : 'Dark' }}
-    </button>
+  <main
+    class="max-w-360 mx-auto p-4 pb-64 grid grid-cols-[1fr_auto] md:grid-cols-[auto_1fr_auto] gap-6 items-start"
+  >
+    <Profile class="order-1 md:order-1" />
+    <div class="flex justify-end order-2 md:order-3">
+      <div class="flex flex-col items-center gap-2">
+        <button
+          @click="toggleTheme"
+          class="cursor-pointer p-2 rounded-full flex flex-col justify-center items-center gap-2 text-slate-800 dark:text-slate-200 hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors"
+        >
+          <SunIcon v-if="isDark" class="w-6 h-6" />
+          <MoonIcon v-else class="w-6 h-6" />
+        </button>
+        <LanguageSwitcher />
+      </div>
+    </div>
 
-    <Profile />
-    <div class="flex flex-col flex-1 w-full gap-8">
+    <div class="col-span-2 md:col-span-1 flex flex-col w-full gap-8 order-3 md:order-2">
       <ExperienceList />
       <EducationList />
       <ProjectList />
     </div>
-    <LanguageSwitcher />
   </main>
 </template>

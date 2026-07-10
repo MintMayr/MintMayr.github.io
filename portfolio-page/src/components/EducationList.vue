@@ -26,7 +26,7 @@ const educations: Education[] = [
   {
     id: 3,
     institute: 'education.institutes.htl_saalfelden',
-    imageUrl: import.meta.env.BASE_URL + 'htl-logo_transparent.png',
+    imageUrl: import.meta.env.BASE_URL + 'htl-logo.jpg',
     grade_of_education: 'education.htl_saalfelden',
     start_date: new Date('2015-09-01T10:00:00'),
     end_date: new Date('2020-06-01T10:00:00'),
@@ -61,7 +61,7 @@ onMounted(() => {
     },
     {
       rootMargin: '0px',
-      threshold: 1.0,
+      threshold: 0.2,
     },
   )
 
@@ -85,8 +85,7 @@ onMounted(() => {
       class="relative flex items-stretch justify-between w-full mb-30 min-h-50"
       :class="index % 2 === 0 ? 'flex-row-reverse' : ''"
     >
-      <div class="flex-1 w-full"></div>
-
+      <div class="flex-1 min-w-0"></div>
       <div
         class="z-10 flex flex-col items-center w-24 shrink-0 transition-all duration-700 ease-out"
         :class="visibleItems[item.id] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'"
@@ -118,7 +117,7 @@ onMounted(() => {
         </div>
       </div>
       <div
-        class="flex-1 w-full py-4 transition-all duration-700 delay-500 ease-out"
+        class="flex-1 min-w-0 py-4 transition-all duration-700 delay-500 ease-out"
         :class="[
           visibleItems[item.id] ? 'opacity-100 translate-x-0' : 'opacity-0',
           !visibleItems[item.id] && index % 2 === 0 ? '-translate-x-12' : '',

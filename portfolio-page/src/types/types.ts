@@ -54,6 +54,7 @@ export interface Experience {
   id: number;
   name: string;
   description: string;
+  grade_of_employment?: string;
   start_date: Date;
   end_date?: Date;
   summary: string;

@@ -1,4 +1,8 @@
 {
+  "general": {
+    "present": "PRESENT",
+    "graduation": "Graduated"
+  },
   "education": {
     "tu_wien_bsc": "Bachelor of Science - BSc, Computer Science",
     "tu_wien_msc": "Master of Science - MSc, Computer Science",
@@ -28,7 +32,10 @@
       "company": "Austrian Armed Forces (Österreichisches Bundesheer)",
       "role": "Military Service",
       "summary": "Mandatory basic military service at the Austrian Armed Forces trained as a paramedic for six months. Plus three months of voluntary service at the Covid center. Active militiaman at Austrian Armed Forces."
-    }
+    },
+    "part_time": "Part Time",
+    "full_time": "Full Time",
+    "internship": "Internship"
   },
   "project": {
     "lidarc": {

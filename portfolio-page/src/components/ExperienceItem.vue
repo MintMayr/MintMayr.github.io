@@ -12,25 +12,37 @@ defineProps<{
 
 <template>
   <div
-    class="bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden flex w-full transition-colors"
+    class="bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden flex w-full transition-colors p-6 gap-6"
   >
-    <div class="p-6 flex-1 flex flex-col gap-3">
-      <div class="flex flex-row items-center">
-        <div class="w-20 shrink-0 mr-4">
-          <img
-            :src="experience.imageUrl"
-            :alt="t(experience.name) + ' Logo'"
-            class="w-full h-full object-contain"
-          />
-        </div>
+    <div
+      class="w-16 h-16 sm:w-24 sm:h-24 shrink-0 rounded-lg p-2 flex items-center justify-center "
+    >
+      <img
+        :src="experience.imageUrl"
+        :alt="t(experience.name) + ' Logo'"
+        class="max-w-full max-h-full object-contain"
+      />
+    </div>
+    <div class="flex-1 flex flex-col gap-4">
+      <div>
         <h3 class="text-xl font-bold text-gray-900 dark:text-slate-100">
-          {{ t(experience.name) }} - {{ t(experience.description) }}
+          {{ t(experience.description) }}
         </h3>
+        <div
+          class="flex flex-wrap items-center gap-x-2 gap-y-1 mt-1 text-sm text-slate-600 dark:text-slate-400"
+        >
+          <span class="font-semibold text-blue-600 dark:text-blue-400">{{
+            t(experience.name)
+          }}</span>
+          <span class="hidden sm:inline">&bull;</span>
+          <span v-if="experience.grade_of_employment" class="bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded text-xs">{{ t(experience.grade_of_employment) }}</span>
+          <span class="hidden sm:inline">&bull;</span>
+          <span
+            >{{ formatDate(experience.start_date) }} - {{ formatDate(experience.end_date) }}</span
+          >
+        </div>
       </div>
-      <p class="text-gray-500 dark:text-slate-400 text-base">
-        {{ formatDate(experience.start_date) }} - {{ formatDate(experience.end_date) }}
-      </p>
-      <p class="text-gray-700 dark:text-slate-300 text-base">
+      <p class="text-slate-700 dark:text-slate-300 text-base leading-relaxed max-w-3xl">
         {{ t(experience.summary) }}
       </p>
       <div class="flex flex-wrap gap-2 mt-auto pt-2">

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import Tag from "@/components/Tag.vue";
 import type {Project} from "@/types/types.ts";
-import { ChevronDownIcon } from "@heroicons/vue/24/outline"
 import {ref} from "vue";
 import { useI18n } from 'vue-i18n'
 
@@ -35,15 +34,9 @@ const isExpanded = ref(false);
           </svg>
         </div>
       </div>
-      <div class="absolute bottom-2 left-1/2 -translate-x-1/2 text-slate-400 group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-300 transition-all duration-300">
-        <ChevronDownIcon class="w-6 h-6 transition-transform duration-300"
-                         :class="isExpanded ? 'rotate-180' : 'group-hover:translate-y-1'"/>
-      </div>
+
     </div>
     <div class="p-6 flex flex-col">
-      <div class="flex justify-between items-start gap-4">
-
-      </div>
       <div class="grid transition-all duration-300 ease-in-out"
            :class="isExpanded ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'"
          >
