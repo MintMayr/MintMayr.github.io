@@ -47,7 +47,7 @@ export interface Education {
   grade_of_education: string;
   start_date: Date;
   end_date?: Date;
-  skills: Skill[];
+  skills: TagData[];
 }
 
 export interface Experience {

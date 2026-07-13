@@ -12,7 +12,15 @@ const educations: Education[] = [
     grade_of_education: 'education.tu_wien_bsc',
     start_date: new Date('2021-10-01T10:00:00'),
     end_date: new Date('2025-09-01T10:00:00'),
-    skills: [],
+    skills: [
+      { text: 'tags.java', color: 'blue' },
+      { text: 'tags.angular', color: 'red' },
+      { text: 'tags.spring_boot', color: 'green' },
+      { text: 'tags.calculus', color: 'brown' },
+      { text: 'tags.database_systems', color: 'violet' },
+      { text: 'tags.algorithms', color: 'teal' },
+      { text: 'tags.software_design', color: 'indigo' },
+    ],
   },
   {
     id: 2,
@@ -21,7 +29,12 @@ const educations: Education[] = [
     grade_of_education: 'education.tu_wien_msc',
     start_date: new Date('2025-10-01T10:00:00'),
     end_date: undefined,
-    skills: [],
+    skills: [
+      { text: 'tags.machine_learning', color: 'emerald' },
+      { text: 'tags.semantic_systems', color: 'amber' },
+      { text: 'tags.distributed_systems', color: 'rose' },
+      { text: 'tags.problem_solving', color: 'orange' },
+    ],
   },
   {
     id: 3,

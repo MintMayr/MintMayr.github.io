@@ -1,7 +1,11 @@
 {
   "general": {
     "present": "PRESENT",
-    "graduation": "Graduated"
+    "graduation": "Graduated",
+    "readLess": "Show less",
+    "readMore": "Show more...",
+    "showSkills": "Show Skills",
+    "hideSkills": "Hide Skills"
   },
   "education": {
     "tu_wien_bsc": "Bachelor of Science - BSc, Computer Science",
@@ -63,6 +67,14 @@
     "kubernetes": "Kubernetes",
     "docker": "Docker",
     "redis": "Redis",
-    "minio": "MinIO"
+    "minio": "MinIO",
+    "calculus": "Calculus",
+    "database_systems": "Database Systems",
+    "algorithms": "Algorithms",
+    "software_design": "Software Design",
+    "machine_learning": "Machine Learning",
+    "semantic_systems": "Semantic Systems",
+    "distributed_systems": "Distributed Systems",
+    "problem_solving": "Problem solving"
   }
 }

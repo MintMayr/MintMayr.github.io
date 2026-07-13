@@ -1,7 +1,11 @@
 {
   "general": {
     "present": "HEUTE",
-    "graduation": "Abschluss"
+    "graduation": "Abschluss",
+    "readLess": "Weniger anzeigen",
+    "readMore": "Mehr anzeigen...",
+    "showSkills": "Skills anzeigen",
+    "hideSkills": "Skills minimieren"
   },
   "education": {
     "tu_wien_bsc": "Bachelor of Science - BSc, Informatik",
@@ -63,6 +67,14 @@
     "kubernetes": "Kubernetes",
     "docker": "Docker",
     "redis": "Redis",
-    "minio": "MinIO"
+    "minio": "MinIO",
+    "calculus": "Mathematik",
+    "database_systems": "Datenbanksysteme",
+    "algorithms": "Algorithmen",
+    "software_design": "Softwareentwurf",
+    "machine_learning": "Machine Learning",
+    "semantic_systems": "Semantic Systems",
+    "distributed_systems": "Verteilte Systeme",
+    "problem_solving": "Probleme lösen"
   }
 }

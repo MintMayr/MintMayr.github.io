@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import type {TagData} from "@/types/types.ts";
+import { computed } from 'vue'
+import type { TagData } from '@/types/types.ts'
 import { useI18n } from 'vue-i18n'
-const { t } = useI18n();
+const { t } = useI18n()
 const props = defineProps<{
-  tag: TagData;
-}>();
+  tag: TagData
+}>()
 const colorVariants: Record<string, string> = {
   blue: 'bg-blue-100 text-blue-800',
   teal: 'bg-teal-100 text-teal-800',
@@ -23,19 +23,20 @@ const colorVariants: Record<string, string> = {
   emerald: 'bg-emerald-100 text-emerald-800',
   rose: 'bg-rose-100 text-rose-800',
   amber: 'bg-amber-100 text-amber-800',
-};
+}
 
-const activeColorClass = computed(() =>{
-  return colorVariants[props.tag.color || 'gray'];
-});
+const activeColorClass = computed(() => {
+  return colorVariants[props.tag.color || 'gray']
+})
 </script>
 
 <template>
-  <span :class="[
-    'px-3 py-1 text-xs font-medium rounded-full',
-    activeColorClass
+  <span
+    :class="[
+      'px-2 py-0.5 text-[10px] sm:px-3 sm:py-1 sm:text-xs font-medium rounded-full leading-tight',
+      activeColorClass,
     ]"
-        >
+  >
     {{ t(tag.text) }}
   </span>
 </template>
