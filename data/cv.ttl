@@ -1,0 +1,116 @@
+# cv.ttl - Michael's personal CV / Portfolio Data
+
+@prefix cv: <http://example.org/cv#> .
+@prefix foaf:    <http://xmlns.com/foaf/0.1/> .
+@prefix schema:  <http://schema.org/> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+
+# ─────────────────────────────────────────────
+# Person
+# ─────────────────────────────────────────────
+
+
+cv:me a foaf:Person ;
+    foaf:firstName "Michael" ;
+    foaf:lastName "Mayr" ;
+    foaf:homepage <https://MintMayr.github.io> ;
+    cv:hasSkill cv:skill-vue, cv:skill-typescript ; #TODO: Add further skills
+    cv:workedAt cv:exp-siemens ;
+    cv:studiedAt cv:edu-tuw ;
+    cv:hasProject cv:proj-lidarc ;
+    cv:speaksLanguage cv:lang-german, cv:lang-english .
+
+
+# ─────────────────────────────────────────────
+# Skills
+# ─────────────────────────────────────────────
+
+cv:skill-vue a cv:Skill ;
+    skos:prefLabel "Vue.js" ;
+    cv:category cv:cat-frontend ;
+    cv:proficiency "Advanced" .
+
+cv:skill-typescript a cv:Skill ;
+    skos:prefLabel "TypeScript" ;
+    cv:category cv:cat-language ;
+    cv:proficiency "Advanced" .
+
+# TODO: Add more
+
+# ─────────────────────────────────────────────
+# Skill Categories
+# ─────────────────────────────────────────────
+
+cv:cat-frontend a cv:SkillCategory ;
+    skos:prefLabel "Frontend" ;
+    cv:color "blue" .
+
+cv:cat-language a cv:SkillCategory ;
+    skos:prefLabel "Programming Language" ;
+    cv:color "violet" .
+
+cv:cat-data a cv:SkillCategory ;
+    skos:prefLabel "Data & Semantics" ;
+    cv:color "teal" .
+
+cv:cat-devops a cv:SkillCategory ;
+    skos:prefLabel "DevOps & Tooling" ;
+    cv:color "orange" .
+
+#TODO: Refine and add more
+
+# ─────────────────────────────────────────────
+# Education
+# ─────────────────────────────────────────────
+
+
+cv:edu-tuw a schema:EducationalOrganization ;
+    schema:name "Technical University of Vienna" ;
+    cv:degree "M.Sc. Software Engineering" ;
+    cv:startDate "2025-10-01"^^^xsd:date ;
+    cv:status "Ongoing" ;
+    cv:usedSkill cv:skill-vue .
+
+# TODO: Add more and Refine
+
+# ─────────────────────────────────────────────
+# Projects
+# ─────────────────────────────────────────────
+
+cv:proj-lidarc a cv:Project ;
+    schema:name "LiDARC" ;
+    schema:description "" ;
+    schema:url <https://github.com> ;
+    cv:usedSkill cv:skill-vue ;
+    cv:status "Finsihed" .
+
+
+
+
+ # TODO ADD More and refine
+ 
+# ─────────────────────────────────────────────
+# Languages
+# ─────────────────────────────────────────────
+
+cv:lang-german a cv:Language ;
+    skos:prefLabel "German" ;
+    cv:proficiency "Native" .
+
+cv:lang-english a cv:Language ;
+    skos:prefLabel "English" ;
+    cv:proficiency "Fluent" .
+
+# ─────────────────────────────────────────────
+# Relationships 
+# ─────────────────────────────────────────────
+
+cv:edu-tuw cv:locatedIn cv:loc-vienna .
+cv:exp-siemens cv:locatedIn cv:loc-vienna .
+
+cv:loc-vienna a schema:Place ;
+    schema:name "Vienna, Austria" .
+
