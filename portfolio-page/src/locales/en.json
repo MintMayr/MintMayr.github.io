@@ -75,6 +75,13 @@
     "machine_learning": "Machine Learning",
     "semantic_systems": "Semantic Systems",
     "distributed_systems": "Distributed Systems",
-    "problem_solving": "Problem solving"
+    "problem_solving": "Problem solving",
+    "quarkus": "Quarkus",
+    "neo4j": "Neo4J",
+    "quasar": "Quasar",
+    "rdf": "RDF",
+    "arangodb": "ArangoDB",
+    "jupyternotebook": "Jupyter Notebook",
+    "cryptocurrency": "Cryptocurrency"
   }
 }
