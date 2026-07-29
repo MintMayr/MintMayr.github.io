@@ -46,19 +46,11 @@
     "tailwindcss": "^4.2.4",
     "typescript": "~6.0.0",
     "vite": "^8.1.4",
-    "vite-plugin-vue-devtools": "^8.1.5",
+    "vite-plugin-vue-devtools": "^8.2.1",
     "vue-tsc": "^3.2.6"
   },
   "engines": {
     "node": ">=22.12.0"
-  },
-  "overrides": {
-    "vite-plugin-inspect": {
-      "vite": "$vite"
-    },
-    "vite-dev-rpc": {
-      "vite": "$vite"
-    }
   },
   "allowScripts": {
     "fsevents@2.3.3": true

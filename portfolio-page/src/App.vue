@@ -2,6 +2,7 @@
 import ProjectList from '@/components/ProjectList.vue'
 import EducationList from '@/components/EducationList.vue'
 import ExperienceList from '@/components/ExperienceList.vue'
+import PortfolioGraph from './components/PortfolioGraph.vue'
 import { SunIcon, MoonIcon } from '@heroicons/vue/24/outline'
 import { onMounted, ref } from 'vue'
 import Profile from '@/components/Profile.vue'
@@ -50,10 +51,11 @@ onMounted(() => {
       </div>
     </div>
 
-    <div class="col-span-2 md:col-span-1 flex flex-col w-full gap-8 order-3 md:order-2">
-      <ExperienceList />
+    <!--- <div class="col-span-2 md:col-span-1 flex flex-col w-full gap-8 order-3 md:order-2">
+       <ExperienceList />
       <EducationList />
       <ProjectList />
-    </div>
+    </div>-->
+    <PortfolioGraph class="order-2" />
   </main>
 </template>
