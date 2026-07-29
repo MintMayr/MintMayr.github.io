@@ -2,16 +2,23 @@
 import type { GraphNode } from '@/types/types.ts'
 import NodeComponent from './NodeComponent.vue'
 import { useGraphData } from '@/composables/useGraphData.ts'
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, reactive, ref } from 'vue'
 import { buildNodeChildrenMap, computeLayout } from '@/composables/useGraphLayout.ts'
 
+const MIN_SCALE = 0.3
+const MAX_SCALE = 3
 const VIEW_WIDTH = 800
 const VIEW_HEIGHT = 600
-const { nodes, edges } = useGraphData()
+
+const viewBox = reactive({ x: 0, y: 0, width: VIEW_WIDTH, height: VIEW_HEIGHT })
+
+const { nodes, edges, ready } = useGraphData()
 
 const nodesById = computed(() => new Map(nodes.map((n) => [n.id, n])))
 const childrenMap = computed(() => buildNodeChildrenMap(nodes))
 const visibleNodes = computed(() => nodes.filter((n) => n.visible))
+
+const isDragging = ref(false)
 
 const visibleEdges = computed(() => {
   const result: { id: string; label: string; source: GraphNode; target: GraphNode }[] = []
@@ -25,6 +32,34 @@ const visibleEdges = computed(() => {
   }
   return result
 })
+
+function onWheel(event: WheelEvent) {
+  const svg = event.currentTarget as SVGSVGElement
+  const ctm = svg.getScreenCTM()
+  if (!ctm) return
+
+  const point = svg.createSVGPoint()
+  point.x = event.clientX
+  point.y = event.clientY
+  const cursor = point.matrixTransform(ctm.inverse())
+
+  const zoomFactor = event.deltaY < 0 ? 0.99 : 1.05
+  const nextWidth = viewBox.width * zoomFactor
+  const scale = VIEW_WIDTH / nextWidth
+  if (scale < MIN_SCALE || scale > MAX_SCALE) return
+  viewBox.x = cursor.x - (cursor.x - viewBox.x) * zoomFactor
+  viewBox.y = cursor.y - (cursor.y - viewBox.y) * zoomFactor
+  viewBox.width = nextWidth
+  viewBox.height = viewBox.height * zoomFactor
+}
+
+function onDragStart() {
+  isDragging.value = true
+}
+
+function onDragEnd() {
+  isDragging.value = false
+}
 
 function hiddenChildrenOf(nodeId: string): GraphNode[] {
   return (childrenMap.value.get(nodeId) ?? []).filter((c) => !c.visible)
@@ -60,22 +95,36 @@ function onCollapse(nodeId: string) {
   relayout()
 }
 
+let rafId: number | null = null
+let pendingDrag: { nodeId: string; x: number; y: number } | null = null
+
 function onDrag(nodeId: string, x: number, y: number) {
-  const dragged = nodesById.value.get(nodeId)
-  if (!dragged) return
-  dragged.pinned = true
-  dragged.x = x
-  dragged.y = y
-  relayout()
+  pendingDrag = { nodeId, x, y }
+  if (rafId !== null) return
+  rafId = requestAnimationFrame(() => {
+    rafId = null
+    if (!pendingDrag) return
+    const dragged = nodesById.value.get(pendingDrag.nodeId)
+    if (dragged) {
+      dragged.pinned = true
+      dragged.x = pendingDrag.x
+      dragged.y = pendingDrag.y
+      relayout()
+    }
+  })
 }
 
-onMounted(relayout)
+onMounted(async () => {
+  await ready
+  relayout()
+})
 </script>
 
 <template>
   <svg
-    :viewBox="`0 0 ${VIEW_WIDTH} ${VIEW_HEIGHT}`"
+    :viewBox="`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`"
     class="w-full h-auto border-2 border-solid border-amber-500"
+    @wheel.prevent="onWheel"
   >
     <g>
       <g v-for="edge in visibleEdges" :key="edge.id">
@@ -103,7 +152,10 @@ onMounted(relayout)
       :node="node"
       :hidden-children="hiddenChildrenOf(node.id)"
       :has-visible-children="hasVisibleChildren(node.id)"
+      :is-dragging="isDragging"
       @drag="onDrag"
+      @dragstart="onDragStart"
+      @dragend="onDragEnd"
       @reveal="onReveal"
       @collapse="onCollapse"
     />

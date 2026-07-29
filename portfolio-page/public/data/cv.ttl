@@ -70,7 +70,7 @@ cv:cat-devops a cv:SkillCategory ;
 cv:edu-tuw a schema:EducationalOrganization ;
     schema:name "Technical University of Vienna" ;
     cv:degree "M.Sc. Software Engineering" ;
-    cv:startDate "2025-10-01"^^^xsd:date ;
+    cv:startDate "2025-10-01"^^xsd:date ;
     cv:status "Ongoing" ;
     cv:usedSkill cv:skill-vue .
 
