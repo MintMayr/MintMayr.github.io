@@ -7,5 +7,5 @@ export const sortedByDate = <T extends { start_date: Date }>(items: T[]): T[] =>
 export const formatDate = (date: Date | undefined, locale: string): string => {
   if (!date) return ''
   const month = date.toLocaleDateString(locale, { month: 'short' }).toUpperCase()
-  return `${month} ${date.getFullYear}`
+  return `${month} ${date.getFullYear()}`
 }

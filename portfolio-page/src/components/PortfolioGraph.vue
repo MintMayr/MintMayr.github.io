@@ -4,6 +4,7 @@ import NodeComponent from './NodeComponent.vue'
 import { useGraphData } from '@/composables/useGraphData.ts'
 import { computed, onMounted, reactive, ref, onBeforeUnmount } from 'vue'
 import { buildNodeChildrenMap, computeLayout } from '@/composables/useGraphLayout.ts'
+import NodePropertiesCard from './NodePropertiesCard.vue'
 
 const MIN_SCALE = 0.3
 const MAX_SCALE = 3
@@ -11,6 +12,7 @@ const VIEW_WIDTH = 800
 const VIEW_HEIGHT = 600
 const ZOOM_SENSITIVITY = 0.0015
 const MAX_WHEEL_DELTA = 100
+const HOVER_GRACE_MS = 150
 
 const viewBox = reactive({ x: 0, y: 0, width: VIEW_WIDTH, height: VIEW_HEIGHT })
 
@@ -24,6 +26,24 @@ const isDragging = ref(false)
 let rafId: number | null = null
 let pendingDrag: { nodeId: string; x: number; y: number } | null = null
 
+const hoveredNodeId = ref<string | null>(null)
+let hoverClearTimer: number | null = null
+
+function cancelPendingHoverClear() {
+  if (hoverClearTimer !== null) {
+    clearTimeout(hoverClearTimer)
+    hoverClearTimer = null
+  }
+}
+
+function scheduleHoverClear(nodeId: string) {
+  cancelPendingHoverClear()
+  hoverClearTimer = window.setTimeout(() => {
+    if (hoveredNodeId.value === nodeId) hoveredNodeId.value = null
+    hoverClearTimer = null
+  }, HOVER_GRACE_MS)
+}
+
 function onDragStart() {
   isDragging.value = true
 }
@@ -31,6 +51,26 @@ function onDragStart() {
 function onDragEnd() {
   isDragging.value = false
 }
+
+function onHoverStart(nodeId: string) {
+  cancelPendingHoverClear()
+  hoveredNodeId.value = nodeId
+}
+
+function onHoverEnd(nodeId: string) {
+  scheduleHoverClear(nodeId)
+}
+
+function onCardHoverEnter() {
+  cancelPendingHoverClear()
+}
+function onCardHoverLeave() {
+  if (hoveredNodeId.value) scheduleHoverClear(hoveredNodeId.value)
+}
+
+const hoveredNode = computed(() =>
+  hoveredNodeId.value ? (nodesById.value.get(hoveredNodeId.value) ?? null) : null,
+)
 
 const visibleEdges = computed(() => {
   const result: { id: string; label: string; source: GraphNode; target: GraphNode }[] = []
@@ -160,6 +200,7 @@ onMounted(async () => {
 
 onBeforeUnmount(() => {
   if (rafId !== null) cancelAnimationFrame(rafId)
+  cancelPendingHoverClear()
 })
 </script>
 
@@ -207,6 +248,17 @@ onBeforeUnmount(() => {
       @reveal="onReveal"
       @collapse="onCollapse"
       @collapse-self="onCollapseSelf"
+      @hoverstart="onHoverStart"
+      @hoverend="onHoverEnd"
+    />
+    <NodePropertiesCard
+      v-if="hoveredNode"
+      :label="hoveredNode.label"
+      :properties="hoveredNode.properties"
+      :x="hoveredNode.x + 40"
+      :y="hoveredNode.y - 40"
+      @pointerenter="onCardHoverEnter"
+      @pointerleave="onCardHoverLeave"
     />
   </svg>
 </template>

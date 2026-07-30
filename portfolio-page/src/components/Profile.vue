@@ -25,36 +25,42 @@ const sleep = (ms: number) =>
     }, ms)
   })
 
+function pickNextIndex(excluding: number): number {
+  let nextIndex: number
+  do {
+    nextIndex = Math.floor(Math.random() * phrases.length)
+  } while (nextIndex === excluding)
+  return nextIndex
+}
+
+async function eraseText(text: string): Promise<void> {
+  for (let i = text.length; i >= 0 && isAnimating; i--) {
+    currentLevelText.value = text.substring(0, i)
+    await sleep(80)
+  }
+}
+
+async function typeText(text: string): Promise<void> {
+  for (let i = 1; i <= text.length && isAnimating; i++) {
+    currentLevelText.value = text.substring(0, i)
+    await sleep(100)
+  }
+}
+
 const typeWriterEffect = async () => {
   while (isAnimating) {
     await sleep(3000)
     if (!isAnimating) break
 
-    const currentPhrase = phrases[currentIndex]!.text
-
-    for (let i = currentPhrase.length; i >= 0; i--) {
-      currentLevelText.value = currentPhrase.substring(0, i)
-      await sleep(80)
-      if (!isAnimating) break
-    }
+    await eraseText(phrases[currentIndex]!.text)
 
     await sleep(400)
     if (!isAnimating) break
 
-    let nextIndex
-    do {
-      nextIndex = Math.floor(Math.random() * phrases.length)
-    } while (nextIndex === currentIndex)
-
-    currentIndex = nextIndex
+    currentIndex = pickNextIndex(currentIndex)
     const nextPhraseObj = phrases[currentIndex]
     currentFont.value = nextPhraseObj!.font
-
-    for (let i = 1; i <= nextPhraseObj!.text.length; i++) {
-      currentLevelText.value = nextPhraseObj!.text.substring(0, i)
-      await sleep(100)
-      if (!isAnimating) break
-    }
+    await typeText(nextPhraseObj!.text)
   }
 }
 

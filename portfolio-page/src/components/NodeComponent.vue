@@ -16,6 +16,8 @@ const emit = defineEmits<{
   reveal: [childId: string]
   collapse: [nodeId: string]
   collapseSelf: [nodeId: string]
+  hoverstart: [nodeId: string]
+  hoverend: [nodeId: string]
 }>()
 
 const RADIUS = 32
@@ -105,8 +107,10 @@ function onPointerUp() {
     @pointermove="onPointerMove"
     @pointerup="onPointerUp"
     @pointercancel="onPointerUp"
+    @pointerenter="emit('hoverstart', node.id)"
+    @pointerleave="emit('hoverend', node.id)"
   >
-    <title>{{ node.description ?? node.label }}</title>
+    <title>{{ node.label }}</title>
     <defs>
       <clipPath :id="clipId">
         <circle :r="RADIUS" />

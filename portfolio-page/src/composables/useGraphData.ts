@@ -17,6 +17,7 @@ function node(id: string, label: string, primaryParent: string | null, visible =
     wedgeEnd: Math.PI * 2,
     visible,
     pinned: primaryParent === null,
+    properties: [],
   }
 }
 
@@ -29,8 +30,8 @@ function buildMockData(nodes: GraphNode[], edges: GraphEdge[]) {
     node('cybersecurity', 'Cybersecurity', 'tuwien'),
     node('metro-project', 'Metro Project', 'siemens'),
   )
-  nodes[0].x = 400
-  nodes[0].y = 300
+  nodes[0]!.x = 400
+  nodes[0]!.y = 300
   edges.push(
     { id: 'e1', source: 'michael', target: 'tuwien', label: 'studies' },
     { id: 'e2', source: 'michael', target: 'siemens', label: 'worksAt' },

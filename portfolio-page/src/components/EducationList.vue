@@ -81,7 +81,7 @@ onMounted(() => {
   )
 
   itemRefs.value.forEach((item) => {
-    if (item) observer.observe(item)
+    if (item) observer!.observe(item)
   })
 })
 

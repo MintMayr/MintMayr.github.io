@@ -63,10 +63,14 @@ export interface Experience {
   tags: TagData[]
 }
 
+export interface NodeProperty {
+  label: string
+  value: string
+}
 export interface GraphNode {
   id: string
   label: string
-  description?: string
+  properties: NodeProperty[]
   primaryParent: string | null
   x: number
   y: number
@@ -75,6 +79,7 @@ export interface GraphNode {
   wedgeEnd: number
   visible: boolean
   pinned: boolean
+  link?: string
 }
 
 export interface GraphEdge {
@@ -83,5 +88,3 @@ export interface GraphEdge {
   target: string
   label: string
 }
-
-

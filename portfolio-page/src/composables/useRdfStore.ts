@@ -1,4 +1,4 @@
-import type { GraphEdge, GraphNode } from '@/types/types'
+import type { GraphEdge, GraphNode, NodeProperty } from '@/types/types'
 import { Parser, Store, type Quad } from 'n3'
 
 const RDF_TYPE = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'
@@ -10,8 +10,15 @@ const LABEL_PREDICATES = [
 
 const FIRST_NAME_PREDICATE = 'http://xmlns.com/foaf/0.1/firstName'
 const LAST_NAME_PREDICATE = 'http://xmlns.com/foaf/0.1/lastName'
+const LINK_PREDICATES = ['http://xmlns.com/foaf/0.1/homepage', 'http://schema.org/url']
 const DESCRIPTION_PREDICATE = 'http://schema.org/description'
-const EXCLUDED_PREDICATES = new Set([RDF_TYPE])
+const EXCLUDED_PREDICATES = new Set([RDF_TYPE, ...LINK_PREDICATES])
+
+const LABEL_SKIP_PREDICATES = new Set([
+  ...LABEL_PREDICATES,
+  FIRST_NAME_PREDICATE,
+  LAST_NAME_PREDICATE,
+])
 
 function localName(uri: string): string {
   const separatorIndex = Math.max(uri.lastIndexOf('#'), uri.lastIndexOf('/'))
@@ -39,11 +46,51 @@ function labelFor(uri: string, quads: Quad[]): string {
   return localName(uri)
 }
 
+function linkFor(uri: string, quads: Quad[]): string | undefined {
+  for (const predicate of LINK_PREDICATES) {
+    const match = quads.find(
+      (q) =>
+        q.subject.value === uri &&
+        q.predicate.value === predicate &&
+        q.object.termType === 'NamedNode',
+    )
+    if (match) return match.object.value
+  }
+  return undefined
+}
+
+function typesFor(uri: string, quads: Quad[]): string[] {
+  return quads
+    .filter(
+      (q) =>
+        q.subject.value === uri &&
+        q.predicate.value === RDF_TYPE &&
+        q.object.termType === 'NamedNode',
+    )
+    .map((q) => localName(q.object.value))
+}
+
+function propertiesFor(uri: string, quads: Quad[]): NodeProperty[] {
+  const properties: NodeProperty[] = []
+  const types = typesFor(uri, quads)
+  if (types.length > 0) {
+    properties.push({ label: 'Type', value: types.join(', ') })
+  }
+  for (const quad of quads) {
+    if (quad.subject.value !== uri) continue
+    if (quad.object.termType !== 'Literal') continue
+    if (LABEL_SKIP_PREDICATES.has(quad.predicate.value)) continue
+    const value = quad.object.value
+    if (!value || value.trim().length === 0) continue
+    properties.push({ label: localName(quad.predicate.value), value })
+  }
+  return properties
+}
+
 function makeNode(uri: string, primaryParent: string | null, quads: Quad[]): GraphNode {
   return {
     id: uri,
     label: labelFor(uri, quads),
-    description: literalFor(uri, DESCRIPTION_PREDICATE, quads),
     primaryParent,
     x: 0,
     y: 0,
@@ -52,45 +99,66 @@ function makeNode(uri: string, primaryParent: string | null, quads: Quad[]): Gra
     wedgeEnd: Math.PI * 2,
     visible: primaryParent === null,
     pinned: primaryParent === null,
+    properties: propertiesFor(uri, quads),
+    link: linkFor(uri, quads),
   }
 }
 
-export function buildGraphFromQuads(
-  quads: Quad[],
-  rootUri: string,
-): { nodes: GraphNode[]; edges: GraphEdge[] } {
-  const nodesByUri = new Map<string, GraphNode>()
+function groupQuadsBySubject(quads: Quad[]): Map<string, Quad[]> {
   const quadsBySubject = new Map<string, Quad[]>()
-
   for (const quad of quads) {
     const list = quadsBySubject.get(quad.subject.value) ?? []
     list.push(quad)
     quadsBySubject.set(quad.subject.value, list)
   }
+  return quadsBySubject
+}
 
+function isTraversableResourceQuad(quad: Quad): boolean {
+  return !EXCLUDED_PREDICATES.has(quad.predicate.value) && quad.object.termType === 'NamedNode'
+}
+
+function discoverChildren(
+  currentUri: string,
+  quadsBySubject: Map<string, Quad[]>,
+  nodesByUri: Map<string, GraphNode>,
+  quads: Quad[],
+): string[] {
+  const newUris: string[] = []
+  const outgoing = quadsBySubject.get(currentUri) ?? []
+
+  for (const quad of outgoing) {
+    if (!isTraversableResourceQuad(quad)) continue
+    const objectUri = quad.object.value
+    if (nodesByUri.has(objectUri)) continue
+    nodesByUri.set(objectUri, makeNode(objectUri, currentUri, quads))
+    newUris.push(objectUri)
+  }
+  return newUris
+}
+
+function buildNodeTree(
+  rootUri: string,
+  quadsBySubject: Map<string, Quad[]>,
+  quads: Quad[],
+): Map<string, GraphNode> {
+  const nodesByUri = new Map<string, GraphNode>()
   nodesByUri.set(rootUri, makeNode(rootUri, null, quads))
-  const queue: string[] = [rootUri]
 
+  const queue: string[] = [rootUri]
   while (queue.length > 0) {
     const currentUri = queue.shift()!
-    const outgoing = quadsBySubject.get(currentUri) ?? []
-
-    for (const quad of outgoing) {
-      if (EXCLUDED_PREDICATES.has(quad.predicate.value)) continue
-      if (quad.object.termType !== 'NamedNode') continue
-      const objectUri = quad.object.value
-      if (nodesByUri.has(objectUri)) continue
-
-      nodesByUri.set(objectUri, makeNode(objectUri, currentUri, quads))
-      queue.push(objectUri)
-    }
+    queue.push(...discoverChildren(currentUri, quadsBySubject, nodesByUri, quads))
   }
+  return nodesByUri
+}
 
+function buildEdges(quads: Quad[], nodesByUri: Map<string, GraphNode>): GraphEdge[] {
   const edges: GraphEdge[] = []
   for (const quad of quads) {
-    if (EXCLUDED_PREDICATES.has(quad.predicate.value)) continue
-    if (quad.object.termType !== 'NamedNode') continue
+    if (!isTraversableResourceQuad(quad)) continue
     if (!nodesByUri.has(quad.subject.value) || !nodesByUri.has(quad.object.value)) continue
+
     edges.push({
       id: `${quad.subject.value}|${quad.predicate.value}|${quad.object.value}`,
       source: quad.subject.value,
@@ -98,6 +166,16 @@ export function buildGraphFromQuads(
       label: localName(quad.predicate.value),
     })
   }
+  return edges
+}
+
+export function buildGraphFromQuads(
+  quads: Quad[],
+  rootUri: string,
+): { nodes: GraphNode[]; edges: GraphEdge[] } {
+  const quadsBySubject = groupQuadsBySubject(quads)
+  const nodesByUri = buildNodeTree(rootUri, quadsBySubject, quads)
+  const edges = buildEdges(quads, nodesByUri)
 
   return { nodes: [...nodesByUri.values()], edges }
 }
