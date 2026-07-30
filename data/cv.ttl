@@ -17,9 +17,9 @@ cv:me a foaf:Person ;
     foaf:firstName "Michael" ;
     foaf:lastName "Mayr" ;
     foaf:homepage <https://MintMayr.github.io> ;
-    cv:hasSkill cv:skill-vue, cv:skill-typescript ; #TODO: Add further skills
+    cv:hasSkill cv:skill-vue, cv:skill-typescript, cv:skill-java, cv:skill-spring-boot, cv:skill-software-engineering, cv:skill-project-management, cv:skill-angular, cv:skill-python, cv:skill-algorithms ; #TODO: Add further skills
     cv:workedAt cv:exp-siemens ;
-    cv:studiedAt cv:edu-tuw ;
+    cv:studiedAt cv:edu-tuw-msc, cv:edu-tuw-bsc ;
     cv:hasProject cv:proj-lidarc ;
     cv:speaksLanguage cv:lang-german, cv:lang-english .
 
@@ -38,6 +38,41 @@ cv:skill-typescript a cv:Skill ;
     cv:category cv:cat-language ;
     cv:proficiency "Advanced" .
 
+cv:skill-java a cv:Skill ;
+    skos:prefLabel "Java" ;
+    cv:category cv:cat-language ;
+    cv:proficiency "Advanced" .
+
+cv:skill-spring-boot a cv:Skill ;
+    skos:prefLabel "Spring Boot" ;
+    cv:category cv:cat-framework ;
+    cv:proficiency "Advanced" .
+
+cv:skill-software-engineering a cv:Skill ;
+    skos:prefLabel "Software Engineering" ;
+    cv:category cv:cat-engineering ;
+    cv:proficiency "Advanced" .
+
+cv:skill-project-management a cv:Skill ;
+    skos:prefLabel "Project Management" ;
+    cv:proficiency "Simple" .
+
+
+cv:skill-angular a cv:Skill ;
+    skos:prefLabel "Angular" ;
+    cv:category cv:cat-framework ;
+    cv:proficiency "Advanced" .
+
+cv:skill-python a cv:Skill ;
+    skos:prefLabel "Python" ;
+    cv:category cv:cat-language ;
+    cv:proficiency "Advanced" .
+
+cv:skill-algorithms a cv:Skill ;
+    skos:prefLabel "Algorithms" ;
+    cv:category cv:cat-engineering ;
+    cv:proficiency "Advanced" .
+
 # TODO: Add more
 
 # ─────────────────────────────────────────────
@@ -52,6 +87,10 @@ cv:cat-language a cv:SkillCategory ;
     skos:prefLabel "Programming Language" ;
     cv:color "violet" .
 
+cv:cat-framework a cv:SkillCategory ;
+    skos:prefLabel "Framework" ;
+    cv:color "green" .
+
 cv:cat-data a cv:SkillCategory ;
     skos:prefLabel "Data & Semantics" ;
     cv:color "teal" .
@@ -60,19 +99,42 @@ cv:cat-devops a cv:SkillCategory ;
     skos:prefLabel "DevOps & Tooling" ;
     cv:color "orange" .
 
+cv:cat-engineering a cv:SkillCategory ;
+    skos:prefLabel "Engineering" ;
+    cv:color "silver" .
+
 #TODO: Refine and add more
+
+
+# ─────────────────────────────────────────────
+# Experiences
+# ─────────────────────────────────────────────
+
+cv:exp-siemens a schema:Organization ;
+    skos:prefLabel "Siemens Mobility Austria GmbH" .
+
+
+
 
 # ─────────────────────────────────────────────
 # Education
 # ─────────────────────────────────────────────
 
 
-cv:edu-tuw a schema:EducationalOrganization ;
+cv:edu-tuw-msc a schema:EducationalOrganization ;
     schema:name "Technical University of Vienna" ;
     cv:degree "M.Sc. Software Engineering" ;
-    cv:startDate "2025-10-01"^^^xsd:date ;
+    cv:startDate "2025-10-01"^^xsd:date ;
     cv:status "Ongoing" ;
-    cv:usedSkill cv:skill-vue .
+    cv:usedSkill cv:skill-vue, cv:skill-project-management, cv:skill-algorithms, cv:skill-software-engineering.
+
+cv:edu-tuw-bsc a schema:EducationalOrganization ;
+    schema:name "Technical University of Vienna" ;
+    cv:degree "Bsc. Software Engineering" ;
+    cv:startDate "2021-10-01"^^xsd:date ;
+    cv:endDate "2024-09-01"^^xsd:date ;
+    cv:status "Finsihed" ;
+    cv:usedSkill cv:skill-angular, cv:skill-java, cv:skill-algorithms, cv:skill-spring-boot, cv:skill-software-engineering .
 
 # TODO: Add more and Refine
 
@@ -82,8 +144,8 @@ cv:edu-tuw a schema:EducationalOrganization ;
 
 cv:proj-lidarc a cv:Project ;
     schema:name "LiDARC" ;
-    schema:description "" ;
-    schema:url <https://github.com> ;
+    schema:description "This system provides an interactive platform for uploading, processing, and comparing\n pointcloud sets with a focus on efficient analysis and clear visual feedback. Users can \n submit data through a web-based interface, trigger a comparison, and explore the resulting \nanalyses through interactive visualizations. The system is designed to handle\ncomputationally intensive tasks in the background, allowing users to continue working\nwithout interruption while results are generated asynchronously. Created Results can be\nviewed and additionally downloaded as a Report." ;
+    schema:url <https://github.com/BFW-Remote-Sensing/LiDARC> ;
     cv:usedSkill cv:skill-vue ;
     cv:status "Finsihed" .
 
