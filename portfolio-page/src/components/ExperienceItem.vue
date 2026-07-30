@@ -5,7 +5,7 @@ import { formatDate } from '@/utils/utils.ts'
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const TRUNCATE_LENGTH = 100
 const isExpanded = ref(false)
 const props = defineProps<{
@@ -51,7 +51,8 @@ const truncatedSummary = computed(() => {
           >
           <span class="hidden sm:inline">&bull;</span>
           <span
-            >{{ formatDate(experience.start_date) }} - {{ formatDate(experience.end_date) }}</span
+            >{{ formatDate(experience.start_date, locale) }} -
+            {{ formatDate(experience.end_date, locale) }}</span
           >
         </div>
       </div>

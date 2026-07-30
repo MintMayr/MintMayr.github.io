@@ -4,7 +4,7 @@ import type { Education } from '@/types/types.ts'
 import { useI18n } from 'vue-i18n'
 import { formatDate } from '@/utils/utils.ts'
 import { ref } from 'vue'
-const { t } = useI18n()
+const { t, locale } = useI18n()
 
 defineProps<{
   education: Education
@@ -36,7 +36,7 @@ const showSkills = ref(false)
       </p>
       <p class="text-xs text-slate-400 dark:text-slate-500 font-semibold tracking-wider mt-1">
         {{ education.end_date ? t('general.graduation') + ':' : '' }}
-        {{ education.end_date ? formatDate(education.end_date) : t('general.present') }}
+        {{ education.end_date ? formatDate(education.end_date, locale) : t('general.present') }}
       </p>
       <div class="hidden sm:flex flex-wrap gap-1.5 mt-auto pt-2">
         <Tag v-for="skill in education.skills" :key="skill.text" :tag="skill" />

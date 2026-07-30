@@ -15,6 +15,7 @@ const emit = defineEmits<{
   dragend: []
   reveal: [childId: string]
   collapse: [nodeId: string]
+  collapseSelf: [nodeId: string]
 }>()
 
 const RADIUS = 32
@@ -100,7 +101,7 @@ function onPointerUp() {
       transition: isDragging ? 'none' : 'transform 300ms ease-out',
     }"
     class="cursor-grab"
-    @pointerdown="onPointerDown"
+    @pointerdown.stop="onPointerDown"
     @pointermove="onPointerMove"
     @pointerup="onPointerUp"
     @pointercancel="onPointerUp"
@@ -137,10 +138,22 @@ function onPointerUp() {
       :transform="`translate(${RADIUS - 6}, ${-RADIUS + 6})`"
       class="cursor-pointer"
       @pointerdown.stop
+      @pointermove.stop
       @click="emit('collapse', node.id)"
     >
       <circle r="9" class="fill-slate-300 dark:fill-slate-600" />
       <text text-anchor="middle" dominant-baseline="middle" class="text-[11px] select-none">-</text>
+    </g>
+    <g
+      v-if="node.primaryParent !== null"
+      :transform="`translate(${-RADIUS + 6}, ${-RADIUS + 6})`"
+      class="cursor-pointer"
+      @pointerdown.stop
+      @pointermove.stop
+      @click="emit('collapseSelf', node.id)"
+    >
+      <circle r="9" class="fill-slate-300 dark:fill-slate-600" />
+      <text text-anchor="middle" dominant-baseline="middle" class="text-[11px] select-none">x</text>
     </g>
     <g v-for="child in hiddenChildren" :key="child.id">
       <line

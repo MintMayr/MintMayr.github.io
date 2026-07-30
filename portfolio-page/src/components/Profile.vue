@@ -19,8 +19,10 @@ let isAnimating = true
 let sleepTimer: ReturnType<typeof setTimeout>
 
 const sleep = (ms: number) =>
-  new Promise((resolve) => {
-    sleepTimer = setTimeout(resolve, ms)
+  new Promise<void>((resolve) => {
+    sleepTimer = setTimeout(() => {
+      if (isAnimating) resolve()
+    }, ms)
   })
 
 const typeWriterEffect = async () => {

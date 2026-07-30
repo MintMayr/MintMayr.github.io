@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import type { Education } from '@/types/types.ts'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, onBeforeUnmount } from 'vue'
 import EducationItem from '@/components/EducationItem.vue'
 import { formatDate, sortedByDate } from '@/utils/utils.ts'
+import { useI18n } from 'vue-i18n'
 
+const { locale } = useI18n()
 const educations: Education[] = [
   {
     id: 1,
@@ -53,13 +55,13 @@ const sortedEducations = computed(() => {
 
 const itemRefs = ref<HTMLElement[]>([])
 const visibleItems = ref<Record<number, boolean>>({})
-
+let observer: IntersectionObserver | null = null
 onMounted(() => {
   const firstItem = sortedEducations.value[0]
   if (firstItem) {
     visibleItems.value[firstItem.id] = true
   }
-  const observer = new IntersectionObserver(
+  observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -68,7 +70,7 @@ onMounted(() => {
           if (id) {
             visibleItems.value[id] = true
           }
-          observer.unobserve(target)
+          observer!.unobserve(target)
         }
       })
     },
@@ -81,6 +83,10 @@ onMounted(() => {
   itemRefs.value.forEach((item) => {
     if (item) observer.observe(item)
   })
+})
+
+onBeforeUnmount(() => {
+  observer?.disconnect()
 })
 </script>
 
@@ -109,7 +115,7 @@ onMounted(() => {
           <span
             class="absolute bottom-full mb-2 text-xs font-bold text-slate-800 dark:text-slate-100 bg-slate-50 dark:bg-slate-900 px-2 py-0.5 rounded leading-none whitespace-nowrap transition-colors"
           >
-            {{ formatDate(item.end_date) }}
+            {{ formatDate(item.end_date, locale) }}
           </span>
         </div>
 
@@ -125,7 +131,7 @@ onMounted(() => {
           <span
             class="absolute top-full mt-2 text-xs font-medium text-slate-800 dark:text-slate-100 bg-slate-50 dark:bg-slate-900 px-2 py-0.5 rounded leading-none whitespace-nowrap transition-colors"
           >
-            {{ formatDate(item.start_date) }}
+            {{ formatDate(item.start_date, locale) }}
           </span>
         </div>
       </div>

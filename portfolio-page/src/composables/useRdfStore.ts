@@ -120,6 +120,9 @@ export function useRdfStore() {
 
   async function load(path: string) {
     const response = await fetch(path)
+    if (!response.ok) {
+      throw new Error(`Failed to load RDF data from ${path}: ${response.status}`)
+    }
     const turtle = await response.text()
     const parser = new Parser()
     const quads = parser.parse(turtle)

@@ -1,13 +1,11 @@
-
-export const sortedByDate = (items: any[]) => {
+export const sortedByDate = <T extends { start_date: Date }>(items: T[]): T[] => {
   return items.slice().sort((a, b) => {
-    return new Date(b.start_date).getTime() - new Date(a.start_date).getTime();
-  });
-};
+    return new Date(b.start_date).getTime() - new Date(a.start_date).getTime()
+  })
+}
 
-export const formatDate = (date?: Date) => {
-  if (!date) return 'PRESENT';
-  const month = date.toLocaleDateString('en-US', {month: 'short' }).toUpperCase();
-  const year= date.getFullYear().toString();
-  return `${month} ${year}`;
-};
+export const formatDate = (date: Date | undefined, locale: string): string => {
+  if (!date) return ''
+  const month = date.toLocaleDateString(locale, { month: 'short' }).toUpperCase()
+  return `${month} ${date.getFullYear}`
+}

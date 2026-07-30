@@ -62,6 +62,8 @@ export function useGraphData() {
   const nodes = reactive<GraphNode[]>([])
   const edges = reactive<GraphEdge[]>([])
 
-  const ready = buildRdfData(nodes, edges)
+  const ready = buildRdfData(nodes, edges).catch((err) => {
+    console.error('Failed to load graph data:', err)
+  })
   return { nodes, edges, ready }
 }

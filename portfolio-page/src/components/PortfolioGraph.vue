@@ -2,13 +2,15 @@
 import type { GraphNode } from '@/types/types.ts'
 import NodeComponent from './NodeComponent.vue'
 import { useGraphData } from '@/composables/useGraphData.ts'
-import { computed, onMounted, reactive, ref } from 'vue'
+import { computed, onMounted, reactive, ref, onBeforeUnmount } from 'vue'
 import { buildNodeChildrenMap, computeLayout } from '@/composables/useGraphLayout.ts'
 
 const MIN_SCALE = 0.3
 const MAX_SCALE = 3
 const VIEW_WIDTH = 800
 const VIEW_HEIGHT = 600
+const ZOOM_SENSITIVITY = 0.0015
+const MAX_WHEEL_DELTA = 100
 
 const viewBox = reactive({ x: 0, y: 0, width: VIEW_WIDTH, height: VIEW_HEIGHT })
 
@@ -19,6 +21,16 @@ const childrenMap = computed(() => buildNodeChildrenMap(nodes))
 const visibleNodes = computed(() => nodes.filter((n) => n.visible))
 
 const isDragging = ref(false)
+let rafId: number | null = null
+let pendingDrag: { nodeId: string; x: number; y: number } | null = null
+
+function onDragStart() {
+  isDragging.value = true
+}
+
+function onDragEnd() {
+  isDragging.value = false
+}
 
 const visibleEdges = computed(() => {
   const result: { id: string; label: string; source: GraphNode; target: GraphNode }[] = []
@@ -43,22 +55,43 @@ function onWheel(event: WheelEvent) {
   point.y = event.clientY
   const cursor = point.matrixTransform(ctm.inverse())
 
-  const zoomFactor = event.deltaY < 0 ? 0.99 : 1.05
+  const clampedDeltaY = Math.max(-MAX_WHEEL_DELTA, Math.min(MAX_WHEEL_DELTA, event.deltaY))
+  const zoomFactor = Math.exp(clampedDeltaY * ZOOM_SENSITIVITY)
+
   const nextWidth = viewBox.width * zoomFactor
   const scale = VIEW_WIDTH / nextWidth
   if (scale < MIN_SCALE || scale > MAX_SCALE) return
+
   viewBox.x = cursor.x - (cursor.x - viewBox.x) * zoomFactor
   viewBox.y = cursor.y - (cursor.y - viewBox.y) * zoomFactor
   viewBox.width = nextWidth
   viewBox.height = viewBox.height * zoomFactor
 }
 
-function onDragStart() {
-  isDragging.value = true
+const isPanning = ref(false)
+let panStartClient = { x: 0, y: 0 }
+let panStartViewBox = { x: 0, y: 0 }
+
+function onBackgroundPointerDown(event: PointerEvent) {
+  const svg = event.currentTarget as SVGSVGElement
+  svg.setPointerCapture(event.pointerId)
+  isPanning.value = true
+  panStartClient = { x: event.clientX, y: event.clientY }
+  panStartViewBox = { x: viewBox.x, y: viewBox.y }
 }
 
-function onDragEnd() {
-  isDragging.value = false
+function onBackgroundPointerMove(event: PointerEvent) {
+  if (!isPanning.value) return
+  const svg = event.currentTarget as SVGSVGElement
+  const screenToViewBoxScale = viewBox.width / svg.clientWidth
+  const dx = (event.clientX - panStartClient.x) * screenToViewBoxScale
+  const dy = (event.clientY - panStartClient.y) * screenToViewBoxScale
+  viewBox.x = panStartViewBox.x - dx
+  viewBox.y = panStartViewBox.y - dy
+}
+
+function onBackgroundPointerUp() {
+  isPanning.value = false
 }
 
 function hiddenChildrenOf(nodeId: string): GraphNode[] {
@@ -95,12 +128,17 @@ function onCollapse(nodeId: string) {
   relayout()
 }
 
-let rafId: number | null = null
-let pendingDrag: { nodeId: string; x: number; y: number } | null = null
+function onCollapseSelf(nodeId: string) {
+  const node = nodesById.value.get(nodeId)
+  if (!node) return
+  hideRecursively(node)
+  relayout()
+}
 
 function onDrag(nodeId: string, x: number, y: number) {
   pendingDrag = { nodeId, x, y }
   if (rafId !== null) return
+
   rafId = requestAnimationFrame(() => {
     rafId = null
     if (!pendingDrag) return
@@ -111,12 +149,17 @@ function onDrag(nodeId: string, x: number, y: number) {
       dragged.y = pendingDrag.y
       relayout()
     }
+    pendingDrag = null
   })
 }
 
 onMounted(async () => {
   await ready
   relayout()
+})
+
+onBeforeUnmount(() => {
+  if (rafId !== null) cancelAnimationFrame(rafId)
 })
 </script>
 
@@ -125,7 +168,12 @@ onMounted(async () => {
     :viewBox="`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`"
     class="w-full h-auto border-2 border-solid border-amber-500"
     @wheel.prevent="onWheel"
+    @pointerdown="onBackgroundPointerDown"
+    @pointermove="onBackgroundPointerMove"
+    @pointerup="onBackgroundPointerUp"
+    @pointercancel="onBackgroundPointerUp"
   >
+    <rect x="-5000" y="-5000" width="10000" height="10000" fill="transparent" />
     <g>
       <g v-for="edge in visibleEdges" :key="edge.id">
         <line
@@ -140,7 +188,7 @@ onMounted(async () => {
           :x="(edge.source.x + edge.target.x) / 2"
           :y="(edge.source.y + edge.target.y) / 2"
           text-anchor="middle"
-          class="fill-slate-500 dark:dill-slate-300 text-[11px] select-none"
+          class="fill-slate-500 dark:fill-slate-300 text-[11px] select-none"
         >
           {{ edge.label }}
         </text>
@@ -158,6 +206,7 @@ onMounted(async () => {
       @dragend="onDragEnd"
       @reveal="onReveal"
       @collapse="onCollapse"
+      @collapse-self="onCollapseSelf"
     />
   </svg>
 </template>
