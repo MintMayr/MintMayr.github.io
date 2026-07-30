@@ -45,6 +45,18 @@
     "lidarc": {
       "title": "LiDARC",
       "description": "This system provides an interactive platform for uploading, processing, and comparing\n pointcloud sets with a focus on efficient analysis and clear visual feedback. Users can \n submit data through a web-based interface, trigger a comparison, and explore the resulting \nanalyses through interactive visualizations. The system is designed to handle\ncomputationally intensive tasks in the background, allowing users to continue working\nwithout interruption while results are generated asynchronously. Created Results can be\nviewed and additionally downloaded as a Report."
+    },
+    "ontobinocular": {
+      "title": "Ontobinocular",
+      "description": "A Knowledge Graph that utilizes RDF, OWL, and a custom software project Ontology that extends on popular SemanGit and SEON ontologies. Makes the data mined by Binocular queryable and can make inherit knowledge explicit by semantic reasoning capabilities."
+    },
+    "cryptocurrency": {
+      "title": "Cryptocurrency: Kerma",
+      "description": "Creating and participating in a custom cryptocurrency protocol during the Cryptocurrency course at TU Wien"
+    },
+    "willgraph": {
+      "title": "Willgraph",
+      "description": "A graph-based real estate search platform for Austria that combines property listings with public transportation and points of interest (POI) data. Built with Neo4j graph database, Spring Boot backend, and Quasar/Vue.js frontend. Real Estate Listings - Scraped from Austrian property platforms (Willhaben, Immoscout) Public Transport Integration - GTFS data from Austrian transport networks POI Search - Find nearby amenities (shops, schools, healthcare, etc.) Interactive Map - Leaflet-based visualization with heatmaps Smart Search - Filter properties by price, size, transport accessibility, and nearby amenities"
     }
   },
   "tags": {

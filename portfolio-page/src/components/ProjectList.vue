@@ -26,14 +26,8 @@ const projects: Project[] = [
   },
   {
     id: 2,
-    title: 'Willgraph',
-    description:
-      'A graph-based real estate search platform for Austria that combines property listings with public transportation and points of interest (POI) data. Built with Neo4j graph database, Spring Boot backend, and Quasar/Vue.js frontend.\n' +
-      '🏠 Real Estate Listings - Scraped from Austrian property platforms (Willhaben, Immoscout)\n' +
-      '🚇 Public Transport Integration - GTFS data from Austrian transport networks\n' +
-      '📍 POI Search - Find nearby amenities (shops, schools, healthcare, etc.)\n' +
-      '🗺️ Interactive Map - Leaflet-based visualization with heatmaps\n' +
-      '🔍 Smart Search - Filter properties by price, size, transport accessibility, and nearby amenities',
+    title: 'project.willgraph.title',
+    description: 'project.willgraph.description',
     tags: [
       { text: 'tags.neo4j', color: 'red' },
       { text: 'tags.python', color: 'yellow' },
@@ -47,9 +41,9 @@ const projects: Project[] = [
   },
   {
     id: 3,
-    title: 'Cryptocurrency: Kerma',
+    title: 'project.cryptocurrency.title',
     description:
-      'Creating and participating in a custom cryptocurrency protocol during the Cryptocurrency course at TU Wien',
+      'project.cryptocurrency.description',
     tags: [
       { text: 'tags.cryptocurrency', color: 'blue' },
       { text: 'tags.algorithms', color: 'amber' },
@@ -59,9 +53,8 @@ const projects: Project[] = [
   },
   {
     id: 4,
-    title: 'Ontobinocular',
-    description:
-      'A Knowledge Graph that utilizes RDF, OWL, and a custom software project Ontology that extends on popular SemanGit and SEON ontologies. Makes the data mined by Binocular queryable and can make inherit knowledge explicit by semantic reasoning capabilities.',
+    title: 'project.ontobinocular.title',
+    description: 'project.ontobinocular.description',
     tags: [
       { text: 'tags.semantic_systems', color: 'blue' },
       { text: 'tags.rdf', color: 'brown' },
@@ -83,7 +76,7 @@ const toggleProjects = () => {
   <div class="w-full">
     <button
       @click="toggleProjects"
-      class="w-full flex items-center justify-between text-3xl font-bold text-slate-800 dark:text-slate-100 mb-4 p-3 rounded-lg hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 transition-colors"
+      class="w-full flex items-center justify-between text-3xl font-bold cursor-pointer text-slate-800 dark:text-slate-100 mb-4 p-3 rounded-lg hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 transition-colors"
     >
       <span>My Projects</span>
       <ChevronDownIcon
@@ -99,7 +92,7 @@ const toggleProjects = () => {
     <div class="overflow-hidden">
       <div v-if="isOpen" class="flex flex-col w-full divide-y-2 divide-slate-300">
         <div v-for="project in projects" :key="project.id" class="py-4">
-          <ProjectItem :project="project" />
+          <ProjectItem :project="project" :expand="project.id == 1" />
         </div>
       </div>
     </div>

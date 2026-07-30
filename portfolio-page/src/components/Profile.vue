@@ -4,7 +4,7 @@ import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { Github, Linkedin } from '@thesvg/vue'
 
 const phrases = [
-  { text: 'Level: 25...', font: "'Bytesized', monospace" },
+  { text: 'Level: 25', font: "'Bytesized', monospace" },
   { text: 'Software Engineer 💻', font: "'VT323', monospace" },
   { text: 'I like to travel ✈️', font: "'Space Mono', monospace" },
   { text: 'I like video games 🎮', font: "'Bytesized', monospace" },
@@ -17,12 +17,12 @@ const currentFont = ref(phrases[currentIndex]!.font)
 
 let isAnimating = true
 let sleepTimer: ReturnType<typeof setTimeout>
+let currentResolver: ((value: unknown) => void) | null = null
 
 const sleep = (ms: number) =>
-  new Promise<void>((resolve) => {
-    sleepTimer = setTimeout(() => {
-      if (isAnimating) resolve()
-    }, ms)
+  new Promise((resolve) => {
+    currentResolver = resolve
+    sleepTimer = setTimeout(resolve, ms)
   })
 
 function pickNextIndex(excluding: number): number {
@@ -71,6 +71,7 @@ onMounted(() => {
 onBeforeUnmount(() => {
   isAnimating = false
   clearTimeout(sleepTimer)
+  if (currentResolver) currentResolver(null)
 })
 </script>
 
@@ -83,16 +84,20 @@ onBeforeUnmount(() => {
       <img src="/profile_picture.jpg" alt="Michael Mayr" class="w-full h-full object-cover" />
     </div>
     <div class="flex flex-col items-center md:items-start w-full mb-4">
+      <span class="sr-only"
+        >Level 25 Software Engineer. I like to travel, video games, nature, and taking pictures of
+        animals.</span>
       <div
         class="pixel-text flex items-center text-slate-700 dark:text-slate-300 min-h-10"
         :style="{ fontFamily: currentFont }"
       >
-        <span>{{ currentLevelText }}</span>
+        <span aria-hidden="true">{{ currentLevelText }}</span>
         <span
           class="cursor-blink inline-block w-2.5 h-5 ml-1 bg-slate-700 dark:bg-slate-300"
         ></span>
       </div>
     </div>
+    <h2 class="text-xl text-slate-700 dark:text-slate-300 font-semibold">Get in Touch</h2>
     <div class="flex flex-row justify-center md:justify-start items-center gap-5 w-full">
       <a
         href="https://github.com/MintMayr"
@@ -123,10 +128,6 @@ onBeforeUnmount(() => {
   </aside>
 </template>
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Bytesized&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
-
 .pixel-text {
   font-weight: 400;
   font-size: 1.25rem;

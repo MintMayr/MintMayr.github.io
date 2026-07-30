@@ -45,6 +45,18 @@
     "lidarc": {
       "title": "LiDARC",
       "description": "Dieses System bietet eine interaktive Plattform für das Hochladen, Verarbeiten und Vergleichen von Punktwolken mit Fokus auf eine effiziente Analyse und klares visuelles Feedback. Nutzer können Daten über eine webbasierte Benutzeroberfläche übermitteln, Vergleiche starten und die resultierenden Analysen mittels interaktiver Visualisierungen erkunden. Das System ist so konzipiert, dass rechenintensive Aufgaben im Hintergrund verarbeitet werden. Dadurch können Nutzer ohne Unterbrechung weiterarbeiten, während die Ergebnisse asynchron generiert werden. Die erstellten Resultate können direkt eingesehen oder zusätzlich als Bericht heruntergeladen werden."
+    },
+    "ontobinocular": {
+      "title": "Ontobinocular",
+      "description": "Ein Knowledge Graph basierend auf RDF und OWL, der eine maßgeschneiderte Softwareprojekt-Ontologie nutzt und dabei etablierte Standards wie SemanGit und SEON erweitert. Er macht die von Binocular extrahierten Daten strukturiert abfragbar und nutzt semantisches Reasoning, um implizites Wissen in den Daten explizit nutzbar zu machen."
+    },
+    "cryptocurrency": {
+      "title": "Kryptowährung: Kerma",
+      "description": "Entwicklung und Implementierung eines maßgeschneiderten Kryptowährungs-Protokolls im Rahmen der Lehrveranstaltung 'Cryptocurrency' an der TU Wien."
+    },
+    "willgraph": {
+      "title": "Willgraph",
+      "description": "Eine graphenbasierte Immobilien-Suchplattform für Österreich, die Immobilienangebote intelligent mit dem öffentlichen Nahverkehr und Points of Interest (POI) verknüpft. Der Tech-Stack umfasst eine Neo4j-Graphendatenbank, ein Spring Boot Backend und ein Quasar/Vue.js Frontend.\n\n• Immobilienangebote: Aggregierte Daten von österreichischen Plattformen (Willhaben, ImmoScout24).\n• ÖPNV-Integration: Einbindung von GTFS-Daten der österreichischen Verkehrsnetze.\n• POI-Suche: Lokalisierung von relevanter Infrastruktur in der Nähe (Geschäfte, Schulen, medizinische Versorgung etc.).\n• Interaktive Karte: Leaflet-basierte Visualisierung inklusive Heatmaps.\n• Intelligente Suche: Präzises Filtern nach Preis, Fläche, Verkehrsanbindung und lokaler Infrastruktur."
     }
   },
   "tags": {
