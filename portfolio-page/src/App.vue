@@ -38,7 +38,7 @@ const toggleView = () => {
 
 <template>
   <main
-    class="max-w-360 mx-auto p-4 pb-64 grid grid-cols-[1fr_auto] md:grid-cols-[auto_1fr_auto] gap-6 items-start"
+    class="max-w-360 mx-auto p-4 grid grid-cols-[1fr_auto] md:grid-cols-[auto_1fr_auto] gap-6 items-start"
   >
     <div class="order-1 md:order-1 flex flex-col items-center md:items-start gap-4">
       <Profile />
@@ -70,7 +70,7 @@ const toggleView = () => {
     </div>
     <div class="col-span-2 md:col-span-1 order-3 md:order-2 grid w-full">
       <Transition name="cv-fade">
-        <div v-show="!showGraph" class="col-start-1 row-start-1 flex flex-col w-full gap-8">
+        <div v-show="!showGraph" class="col-start-1 pb-64 row-start-1 flex flex-col w-full gap-8">
           <ExperienceList />
           <EducationList />
           <ProjectList />

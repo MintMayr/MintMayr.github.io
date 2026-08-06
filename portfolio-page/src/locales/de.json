@@ -20,12 +20,12 @@
     "siemens": {
       "company": "Siemens Mobility Austria GmbH",
       "role": "Werkstudent Technik - Systemarchitekt",
-      "summary": "Dies ist eine Testzusammenfassung!"
+      "summary": "Werkstudent in der Metro-Architekturgruppe für Control, Communication und Information bei Siemens Mobility. Unterstützung von F&E- und Kundenprojekten durch die Entwicklung automatisierter Tests, Softwareprototypen, Skripte, SysML-Diagramme und interner Engineering-Tools für Metrosysteme. Mitarbeit an verteilten Onboard-to-Landside-Architekturen mit Technologien wie MQTT, OPC UA, containerisierten Deployments, Python/Flask und Vue. Leitung der Entwicklung eines Entwicklerwerkzeugs zum Mocking von RPC-Services zur effizienteren Validierung von Systemfunktionen und Wartungsanwendungen."
     },
     "tu_wien": {
       "company": "TU Wien",
       "role": "Tutor (Advanced) - Software Engineering Project",
-      "summary": "Unterstützung von Studierendengruppen während des gesamten Semesters bei der Entwicklung ihres Software Engineering Projekts. Betreuung von sowohl Master- als auch Bachelorstudierenden."
+      "summary": "Betreuung von Bachelor- und Masterstudierenden in semesterbegleitenden Software-Engineering-Projekten. Unterstützung der Studierendengruppen bei Projektplanung, Implementierung, Code Reviews, Dokumentation und Präsentationen sowie Bewertung von Abgaben und fachliches Feedback während des gesamten Projektverlaufs."
     },
     "wastics": {
       "company": "Wastics GmbH",

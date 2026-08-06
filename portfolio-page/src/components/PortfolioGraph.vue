@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import type { GraphNode } from '@/types/types.ts'
 import NodeComponent from './NodeComponent.vue'
+import NodePropertiesCard from './NodePropertiesCard.vue'
 import { useGraphData } from '@/composables/useGraphData.ts'
 import { computed, onMounted, reactive, ref, onBeforeUnmount } from 'vue'
 import { buildNodeChildrenMap, computeLayout } from '@/composables/useGraphLayout.ts'
-import NodePropertiesCard from './NodePropertiesCard.vue'
 
 const MIN_SCALE = 0.3
 const MAX_SCALE = 3
@@ -12,7 +12,7 @@ const VIEW_WIDTH = 800
 const VIEW_HEIGHT = 600
 const ZOOM_SENSITIVITY = 0.0015
 const MAX_WHEEL_DELTA = 100
-const HOVER_GRACE_MS = 150
+const BG_CLICK_THRESHOLD = 4
 
 const viewBox = reactive({ x: 0, y: 0, width: VIEW_WIDTH, height: VIEW_HEIGHT })
 
@@ -26,22 +26,18 @@ const isDragging = ref(false)
 let rafId: number | null = null
 let pendingDrag: { nodeId: string; x: number; y: number } | null = null
 
-const hoveredNodeId = ref<string | null>(null)
-let hoverClearTimer: number | null = null
+const selectedNodeId = ref<string | null>(null)
 
-function cancelPendingHoverClear() {
-  if (hoverClearTimer !== null) {
-    clearTimeout(hoverClearTimer)
-    hoverClearTimer = null
-  }
+const selectedNode = computed(() =>
+  selectedNodeId.value ? (nodesById.value.get(selectedNodeId.value) ?? null) : null,
+)
+
+function onNodeClick(nodeId: string) {
+  selectedNodeId.value = selectedNodeId.value === nodeId ? null : nodeId
 }
 
-function scheduleHoverClear(nodeId: string) {
-  cancelPendingHoverClear()
-  hoverClearTimer = window.setTimeout(() => {
-    if (hoveredNodeId.value === nodeId) hoveredNodeId.value = null
-    hoverClearTimer = null
-  }, HOVER_GRACE_MS)
+function closePanel() {
+  selectedNodeId.value = null
 }
 
 function onDragStart() {
@@ -52,32 +48,11 @@ function onDragEnd() {
   isDragging.value = false
 }
 
-function onHoverStart(nodeId: string) {
-  cancelPendingHoverClear()
-  hoveredNodeId.value = nodeId
-}
-
-function onHoverEnd(nodeId: string) {
-  scheduleHoverClear(nodeId)
-}
-
-function onCardHoverEnter() {
-  cancelPendingHoverClear()
-}
-function onCardHoverLeave() {
-  if (hoveredNodeId.value) scheduleHoverClear(hoveredNodeId.value)
-}
-
-const hoveredNode = computed(() =>
-  hoveredNodeId.value ? (nodesById.value.get(hoveredNodeId.value) ?? null) : null,
-)
-
 const visibleEdges = computed(() => {
   const result: { id: string; label: string; source: GraphNode; target: GraphNode }[] = []
   for (const edge of edges) {
     const source = nodesById.value.get(edge.source)
     const target = nodesById.value.get(edge.target)
-
     if (source?.visible && target?.visible) {
       result.push({ id: edge.id, label: edge.label, source, target })
     }
@@ -111,6 +86,7 @@ function onWheel(event: WheelEvent) {
 const isPanning = ref(false)
 let panStartClient = { x: 0, y: 0 }
 let panStartViewBox = { x: 0, y: 0 }
+let bgPanMoved = false
 
 function onBackgroundPointerDown(event: PointerEvent) {
   const svg = event.currentTarget as SVGSVGElement
@@ -118,6 +94,7 @@ function onBackgroundPointerDown(event: PointerEvent) {
   isPanning.value = true
   panStartClient = { x: event.clientX, y: event.clientY }
   panStartViewBox = { x: viewBox.x, y: viewBox.y }
+  bgPanMoved = false
 }
 
 function onBackgroundPointerMove(event: PointerEvent) {
@@ -128,10 +105,22 @@ function onBackgroundPointerMove(event: PointerEvent) {
   const dy = (event.clientY - panStartClient.y) * screenToViewBoxScale
   viewBox.x = panStartViewBox.x - dx
   viewBox.y = panStartViewBox.y - dy
+
+  const mdx = event.clientX - panStartClient.x
+  const mdy = event.clientY - panStartClient.y
+  if (Math.sqrt(mdx * mdx + mdy * mdy) > BG_CLICK_THRESHOLD) {
+    bgPanMoved = true
+  }
 }
 
 function onBackgroundPointerUp() {
+  if (!isPanning.value) return
+
   isPanning.value = false
+  if (!bgPanMoved) {
+    selectedNodeId.value = null
+  }
+  bgPanMoved = false
 }
 
 function hiddenChildrenOf(nodeId: string): GraphNode[] {
@@ -165,12 +154,16 @@ function onCollapse(nodeId: string) {
   for (const child of childrenMap.value.get(nodeId) ?? []) {
     hideRecursively(child)
   }
+  if (selectedNodeId.value && !nodesById.value.get(selectedNodeId.value)?.visible) {
+    selectedNodeId.value = null
+  }
   relayout()
 }
 
 function onCollapseSelf(nodeId: string) {
   const node = nodesById.value.get(nodeId)
   if (!node) return
+  if (selectedNodeId.value === nodeId) selectedNodeId.value = null
   hideRecursively(node)
   relayout()
 }
@@ -200,14 +193,13 @@ onMounted(async () => {
 
 onBeforeUnmount(() => {
   if (rafId !== null) cancelAnimationFrame(rafId)
-  cancelPendingHoverClear()
 })
 </script>
 
 <template>
   <svg
     :viewBox="`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`"
-    class="w-full h-auto border-2 border-solid border-amber-500"
+    class="w-full h-full"
     @wheel.prevent="onWheel"
     @pointerdown="onBackgroundPointerDown"
     @pointermove="onBackgroundPointerMove"
@@ -215,6 +207,7 @@ onBeforeUnmount(() => {
     @pointercancel="onBackgroundPointerUp"
   >
     <rect x="-5000" y="-5000" width="10000" height="10000" fill="transparent" />
+
     <g>
       <g v-for="edge in visibleEdges" :key="edge.id">
         <line
@@ -235,6 +228,7 @@ onBeforeUnmount(() => {
         </text>
       </g>
     </g>
+
     <NodeComponent
       v-for="node in visibleNodes"
       :key="node.id"
@@ -242,23 +236,23 @@ onBeforeUnmount(() => {
       :hidden-children="hiddenChildrenOf(node.id)"
       :has-visible-children="hasVisibleChildren(node.id)"
       :is-dragging="isDragging"
+      :is-selected="selectedNodeId === node.id"
       @drag="onDrag"
       @dragstart="onDragStart"
       @dragend="onDragEnd"
       @reveal="onReveal"
       @collapse="onCollapse"
       @collapse-self="onCollapseSelf"
-      @hoverstart="onHoverStart"
-      @hoverend="onHoverEnd"
+      @nodeclick="onNodeClick"
     />
+
     <NodePropertiesCard
-      v-if="hoveredNode"
-      :label="hoveredNode.label"
-      :properties="hoveredNode.properties"
-      :x="hoveredNode.x + 40"
-      :y="hoveredNode.y - 40"
-      @pointerenter="onCardHoverEnter"
-      @pointerleave="onCardHoverLeave"
+      v-if="selectedNode"
+      :label="selectedNode.label"
+      :properties="selectedNode.properties"
+      :x="selectedNode.x + 40"
+      :y="selectedNode.y - 40"
+      @close="closePanel"
     />
   </svg>
 </template>

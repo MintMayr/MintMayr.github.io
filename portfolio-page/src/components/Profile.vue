@@ -49,7 +49,7 @@ async function typeText(text: string): Promise<void> {
 
 const typeWriterEffect = async () => {
   while (isAnimating) {
-    await sleep(3000)
+    await sleep(5000)
     if (!isAnimating) break
 
     await eraseText(phrases[currentIndex]!.text)
@@ -86,7 +86,8 @@ onBeforeUnmount(() => {
     <div class="flex flex-col items-center md:items-start w-full mb-4">
       <span class="sr-only"
         >Level 25 Software Engineer. I like to travel, video games, nature, and taking pictures of
-        animals.</span>
+        animals.</span
+      >
       <div
         class="pixel-text flex items-center text-slate-700 dark:text-slate-300 min-h-10"
         :style="{ fontFamily: currentFont }"
@@ -97,7 +98,7 @@ onBeforeUnmount(() => {
         ></span>
       </div>
     </div>
-    <h2 class="text-xl text-slate-700 dark:text-slate-300 font-semibold">Get in Touch</h2>
+    <h2 class="text-xl text-slate-700 dark:text-slate-300 font-semibold">Get in Touch:</h2>
     <div class="flex flex-row justify-center md:justify-start items-center gap-5 w-full">
       <a
         href="https://github.com/MintMayr"

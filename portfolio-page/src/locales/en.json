@@ -20,12 +20,12 @@
     "siemens": {
       "company": "Siemens Mobility Austria GmbH",
       "role": "Working Student Technical - System Architect",
-      "summary": "This is a test summary!"
+      "summary": "Working student in Siemens Mobility’s Metro Architecture group for Control, Communication, and Information. Supported R&D and customer projects by developing automated tests, software prototypes, scripts, SysML diagrams, and internal engineering tools for metro train systems. Worked on distributed onboard-to-landside architectures using technologies such as MQTT, OPC UA, containerized deployments, Python/Flask, and Vue. Led the development of a developer tool for mocking RPC services, improving testing efficiency for system functions and maintenance applications."
     },
     "tu_wien": {
       "company": "TU Wien",
       "role": "Tutor (Advanced) Software Engineering Project",
-      "summary": "Supporting students groups throughout the semester to develop their Software Engineering Project. Tutoring both master and bachelor students."
+      "summary": "Supervised Bachelor’s and Master’s student teams at TU Wien in semester-long Software Engineering Projects. Supported teams in applying software engineering practices, including requirements engineering, project planning, implementation, code reviews, documentation, and presentations. Conducted weekly mentoring sessions, participated in management reviews, evaluated submissions, and provided technical and organizational feedback throughout the project lifecycle."
     },
     "wastics": {
       "company": "Wastics GmbH",
