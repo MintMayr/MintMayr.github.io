@@ -66,7 +66,7 @@
     },
     "willgraph": {
       "title": "Willgraph",
-      "description": "Eine graphenbasierte Immobilien-Suchplattform für Österreich, die Immobilienangebote intelligent mit dem öffentlichen Nahverkehr und Points of Interest (POI) verknüpft. Der Tech-Stack umfasst eine Neo4j-Graphendatenbank, ein Spring Boot Backend und ein Quasar/Vue.js Frontend.\n\n• Immobilienangebote: Aggregierte Daten von österreichischen Plattformen (Willhaben, ImmoScout24).\n• ÖPNV-Integration: Einbindung von GTFS-Daten der österreichischen Verkehrsnetze.\n• POI-Suche: Lokalisierung von relevanter Infrastruktur in der Nähe (Geschäfte, Schulen, medizinische Versorgung etc.).\n• Interaktive Karte: Leaflet-basierte Visualisierung inklusive Heatmaps.\n• Intelligente Suche: Präzises Filtern nach Preis, Fläche, Verkehrsanbindung und lokaler Infrastruktur."
+      "description": "Eine graphenbasierte Immobilien-Suchplattform für Österreich, die Immobilienangebote intelligent mit dem öffentlichen Nahverkehr und Points of Interest (POI) verknüpft. Der Tech-Stack umfasst eine Neo4j-Graphendatenbank, ein Spring Boot Backend und ein Quasar/Vue.js Frontend.\n\n🏠 Immobilienangebote: Aggregierte Daten von österreichischen Plattformen (Willhaben, ImmoScout24).\n🚇 ÖPNV-Integration: Einbindung von GTFS-Daten der österreichischen Verkehrsnetze.\n📍 POI-Suche: Lokalisierung von relevanter Infrastruktur in der Nähe (Geschäfte, Schulen, medizinische Versorgung etc.).\n🗺️ Interaktive Karte: Leaflet-basierte Visualisierung inklusive Heatmaps.\n🔍 Intelligente Suche: Präzises Filtern nach Preis, Fläche, Verkehrsanbindung und lokaler Infrastruktur."
     }
   },
   "tags": {

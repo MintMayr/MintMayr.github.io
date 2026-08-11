@@ -56,7 +56,7 @@ const truncatedSummary = computed(() => {
           >
         </div>
       </div>
-      <div class="text-slate-700 dark:text-slate-300 text-base leading-relaxed max-w-3xl">
+      <div class="text-slate-700 dark:text-slate-300 text-base leading-relaxed whitespace-pre-line text-justify">
         <div class="sm:hidden">
           <p>
             {{ isExpanded ? fullSummary : truncatedSummary }}

@@ -20,7 +20,14 @@ const { nodes, edges, ready } = useGraphData()
 
 const nodesById = computed(() => new Map(nodes.map((n) => [n.id, n])))
 const childrenMap = computed(() => buildNodeChildrenMap(nodes))
-const visibleNodes = computed(() => nodes.filter((n) => n.visible))
+const exiting = reactive(new Set<string>())
+const pulseTokens = reactive(new Map<string, number>())
+
+const displayedNodes = computed(() => nodes.filter((n) => n.visible || exiting.has(n.id)))
+
+function pulse(nodeId: string) {
+  pulseTokens.set(nodeId, (pulseTokens.get(nodeId) ?? 0) + 1)
+}
 
 const isDragging = ref(false)
 let rafId: number | null = null
@@ -139,24 +146,36 @@ function onReveal(childId: string) {
   const child = nodesById.value.get(childId)
   if (!child) return
   child.visible = true
+  pulse(childId)
   relayout()
 }
 
-function hideRecursively(current: GraphNode) {
+function startExit(nodesToHide: GraphNode[], durationMs = 320) {
+  nodesToHide.forEach((n) => exiting.add(n.id))
+  window.setTimeout(() => {
+    nodesToHide.forEach((n) => exiting.delete(n.id))
+  }, durationMs)
+}
+
+function hideRecursively(current: GraphNode, collected: GraphNode[]) {
   current.visible = false
   current.pinned = false
+  collected.push(current)
   for (const child of childrenMap.value.get(current.id) ?? []) {
-    hideRecursively(child)
+    hideRecursively(child, collected)
   }
 }
 
 function onCollapse(nodeId: string) {
+  const toHide: GraphNode[] = []
   for (const child of childrenMap.value.get(nodeId) ?? []) {
-    hideRecursively(child)
+    hideRecursively(child, toHide)
   }
   if (selectedNodeId.value && !nodesById.value.get(selectedNodeId.value)?.visible) {
     selectedNodeId.value = null
   }
+  startExit(toHide)
+  pulse(nodeId)
   relayout()
 }
 
@@ -164,7 +183,10 @@ function onCollapseSelf(nodeId: string) {
   const node = nodesById.value.get(nodeId)
   if (!node) return
   if (selectedNodeId.value === nodeId) selectedNodeId.value = null
-  hideRecursively(node)
+  const toHide: GraphNode[] = []
+  hideRecursively(node, toHide)
+  startExit(toHide)
+  pulse(nodeId)
   relayout()
 }
 
@@ -230,13 +252,15 @@ onBeforeUnmount(() => {
     </g>
 
     <NodeComponent
-      v-for="node in visibleNodes"
+      v-for="node in displayedNodes"
       :key="node.id"
       :node="node"
       :hidden-children="hiddenChildrenOf(node.id)"
       :has-visible-children="hasVisibleChildren(node.id)"
       :is-dragging="isDragging"
       :is-selected="selectedNodeId === node.id"
+      :leaving="!node.visible"
+      :pulse-token="pulseTokens.get(node.id) ?? 0"
       @drag="onDrag"
       @dragstart="onDragStart"
       @dragend="onDragEnd"

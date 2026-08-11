@@ -27,11 +27,13 @@ const showSkills = ref(false)
     </div>
     <div class="flex-1 min-w-0 flex flex-col justify-center gap-1 sm:gap-2">
       <h3
-        class="font-bold text-base sm:text-lg md:text-xl text-slate-800 dark:text-slate-100 wrap-break-word"
+        class="font-bold text-base sm:text-lg md:text-xl text-slate-800 dark:text-slate-100 wrap-break-word whitespace-pre-line"
       >
         {{ t(education.institute) }}
       </h3>
-      <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-snug wrap-break-word">
+      <p
+        class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-snug wrap-break-word whitespace-pre-line"
+      >
         {{ t(education.grade_of_education) }}
       </p>
       <p class="text-xs text-slate-400 dark:text-slate-500 font-semibold tracking-wider mt-1">

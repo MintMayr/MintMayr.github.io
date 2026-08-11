@@ -54,7 +54,7 @@
   "project": {
     "lidarc": {
       "title": "LiDARC",
-      "description": "This system provides an interactive platform for uploading, processing, and comparing\n pointcloud sets with a focus on efficient analysis and clear visual feedback. Users can \n submit data through a web-based interface, trigger a comparison, and explore the resulting \nanalyses through interactive visualizations. The system is designed to handle\ncomputationally intensive tasks in the background, allowing users to continue working\nwithout interruption while results are generated asynchronously. Created Results can be\nviewed and additionally downloaded as a Report."
+      "description": "This system provides an interactive platform for uploading, processing, and comparing pointcloud sets with a focus on efficient analysis and clear visual feedback. Users can submit data through a web-based interface, trigger a comparison, and explore the resulting analyses through interactive visualizations. \n\n The system is designed to handle computationally intensive tasks in the background, allowing users to continue working without interruption while results are generated asynchronously. Created Results can be viewed and additionally downloaded as a Report."
     },
     "ontobinocular": {
       "title": "Ontobinocular",
@@ -66,7 +66,7 @@
     },
     "willgraph": {
       "title": "Willgraph",
-      "description": "A graph-based real estate search platform for Austria that combines property listings with public transportation and points of interest (POI) data. Built with Neo4j graph database, Spring Boot backend, and Quasar/Vue.js frontend. Real Estate Listings - Scraped from Austrian property platforms (Willhaben, Immoscout) Public Transport Integration - GTFS data from Austrian transport networks POI Search - Find nearby amenities (shops, schools, healthcare, etc.) Interactive Map - Leaflet-based visualization with heatmaps Smart Search - Filter properties by price, size, transport accessibility, and nearby amenities"
+      "description": "A graph-based real estate search platform for Austria that combines property listings with public transportation and points of interest (POI) data. Built with Neo4j graph database, Spring Boot backend, and Quasar/Vue.js frontend. \n\n🏠 Real Estate Listings - Scraped from Austrian property platforms (Willhaben, Immoscout)\n🚇 Public Transport Integration - GTFS data from Austrian transport networks \n📍 POI Search - Find nearby amenities (shops, schools, healthcare, etc.) \n🗺️ Interactive Map - Leaflet-based visualization with heatmaps \n🔍 Smart Search - Filter properties by price, size, transport accessibility, and nearby amenities"
     }
   },
   "tags": {

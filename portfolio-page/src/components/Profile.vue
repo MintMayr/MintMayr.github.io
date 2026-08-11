@@ -79,10 +79,10 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <aside class="flex flex-col items-center md:items-start shrink-0 md:w-64">
+  <aside class="flex flex-col items-center md:items-start w-full md:w-64">
     <h1 class="text-3xl font-bold text-slate-800 mb-4 dark:text-slate-100">Michael Mayr</h1>
     <div
-      class="w-48 h-48 mb-2 shadow-lg rounded-3xl overflow-hidden border-4 border-white dark:border-slate-800 bg-slate-100 dark:bg-slate-800 shrink-0"
+      class="w-full aspect-square mb-2 shadow-lg rounded-3xl overflow-hidden border-4 border-white dark:border-slate-800 bg-slate-100 dark:bg-slate-800"
     >
       <img src="/profile_picture.jpg" alt="Michael Mayr" class="w-full h-full object-cover" />
     </div>

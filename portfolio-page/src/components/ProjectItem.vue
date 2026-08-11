@@ -76,7 +76,7 @@ const isExpanded = ref(props.expand)
         :class="isExpanded ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'"
       >
         <div class="overflow-hidden">
-          <p class="text-slate-700 dark:text-slate-300 text-base pb-3">
+          <p class="text-slate-700 dark:text-slate-300 text-base pb-3 whitespace-pre-line text-justify">
             {{ t(project.description) }}
           </p>
         </div>

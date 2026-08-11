@@ -51,7 +51,7 @@ const toggleView = () => {
       >
         <component
           :is="showGraph ? DocumentTextIcon : ShareIcon"
-          class="w-8 h-8 text-amber-500 shrink-0"
+          class="w-8 h-8 text-blue-500 shrink-0"
         />
         <span class="font-medium text-slate-800 dark:text-slate-100">
           {{ showGraph ? t('general.staticCV') : t('general.cvGraph') }}
@@ -80,7 +80,12 @@ const toggleView = () => {
         </div>
       </Transition>
       <Transition name="cv-fade">
-        <PortfolioGraph v-show="showGraph" class="col-start-1 row-start-1" />
+        <div
+          v-show="showGraph"
+          class="col-start-1 row-start-1 w-full h-[70vh] p-2 sm:p-3 border border-slate-300 dark:border-slate-700 rounded-2xl bg-white dark:bg-slate-800"
+        >
+          <PortfolioGraph class="w-full h-full" />
+        </div>
       </Transition>
     </div>
   </main>

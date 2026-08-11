@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { GraphNode } from '@/types/types.ts'
-import { computed } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 
 const props = defineProps<{
   node: GraphNode
@@ -8,6 +8,8 @@ const props = defineProps<{
   hasVisibleChildren: boolean
   isDragging: boolean
   isSelected: boolean
+  leaving: boolean
+  pulseToken: number
 }>()
 
 const emit = defineEmits<{
@@ -31,6 +33,48 @@ const ICON_SIZE = 12
 const ICON_HALF = ICON_SIZE / 2
 
 const clipId = computed(() => `node-clip-${props.node.id.replace(/[^a-zA-Z0-9_-]/g, '_')}`)
+
+const body = ref({ scale: 1, opacity: 1 })
+const entered = ref(false)
+
+onMounted(() => {
+  if (props.leaving) {
+    body.value = { scale: 0.3, opacity: 0 }
+    entered.value = true
+    return
+  }
+  body.value = { scale: 0, opacity: 0 }
+  requestAnimationFrame(() => {
+    body.value = { scale: 1.08, opacity: 1 }
+    window.setTimeout(() => {
+      body.value = { ...body.value, scale: 1 }
+    }, 140)
+  })
+  window.setTimeout(() => {
+    entered.value = true
+  }, 220)
+})
+
+watch(
+  () => props.pulseToken,
+  (_nv, ov) => {
+    if (ov === undefined || !entered.value || props.leaving) return
+    body.value = { ...body.value, scale: 1.16 }
+    window.setTimeout(() => {
+      body.value = { ...body.value, scale: 1 }
+    }, 130)
+  },
+)
+
+watch(
+  () => props.leaving,
+  (leaving) => {
+    if (leaving) {
+      body.value = { scale: 0.3, opacity: 0 }
+    }
+  },
+  { immediate: true },
+)
 
 function wrapLabel(
   text: string,
@@ -126,6 +170,7 @@ function onPointerUp() {
       transition: isDragging ? 'none' : 'transform 300ms ease-out',
     }"
     class="cursor-grab"
+    :class="leaving ? 'pointer-events-none' : ''"
     @pointerdown.stop="onPointerDown"
     @pointermove="onPointerMove"
     @pointerup.stop="onPointerUp"
@@ -138,15 +183,24 @@ function onPointerUp() {
       </clipPath>
     </defs>
 
+    <g
+      :style="{
+        transform: `scale(${body.scale})`,
+        opacity: body.opacity,
+        transformOrigin: '0px 0px',
+        transition:
+          'transform 180ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 180ms ease',
+      }"
+    >
     <circle
       v-if="isSelected"
       :r="RADIUS + 4"
-      class="fill-none stroke-amber-400 stroke-[3] animate-pulse"
+      class="fill-none stroke-blue-400 stroke-[3] animate-pulse"
     />
 
     <circle
       :r="RADIUS"
-      class="fill-white dark:fill-slate-800 stroke-amber-500 stroke-2 hover:stroke-amber-400"
+      class="fill-white dark:fill-slate-800 stroke-blue-500 stroke-2 hover:stroke-blue-400"
     />
 
     <text
@@ -236,7 +290,7 @@ function onPointerUp() {
         @pointermove.stop
         @click.stop="emit('reveal', child.id)"
       >
-        <circle r="9" class="fill-amber-500 hover:fill-amber-400 transition-colors" />
+        <circle r="9" class="fill-blue-500 hover:fill-blue-400 transition-colors" />
         <svg
           :x="-ICON_HALF"
           :y="-ICON_HALF"
@@ -251,6 +305,7 @@ function onPointerUp() {
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
         </svg>
       </g>
+    </g>
     </g>
   </g>
 </template>

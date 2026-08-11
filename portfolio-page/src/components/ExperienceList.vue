@@ -80,7 +80,12 @@ const experiences: Experience[] = [
       <div class="text-3xl font-bold text-slate-800 mb-4 dark:text-slate-100">
         {{ t('general.workExperience') }}
       </div>
-      <div v-for="experience in experiences" :key="experience.id" class="py-4">
+      <div
+        v-for="(experience, index) in experiences"
+        :key="experience.id"
+        class="py-4"
+        :class="index === 0 ? 'pt-0' : ''"
+      >
         <ExperienceItem :experience="experience" />
       </div>
       <div></div>

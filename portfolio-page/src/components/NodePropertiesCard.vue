@@ -30,7 +30,7 @@ const emit = defineEmits<{
       @pointerdown.stop
     >
       <div
-        class="flex items-center justify-between gap-2 px-3 py-2.5 border-b border-slate-200 dark:border-slate-700 bg-amber-50/60 dark:bg-amber-900/20 shrink-0"
+        class="flex items-center justify-between gap-2 px-3 py-2.5 border-b border-slate-200 dark:border-slate-700 bg-blue-50/60 dark:bg-blue-900/20 shrink-0"
       >
         <h3
           class="font-semibold text-slate-800 dark:text-slate-100 truncate text-[13px]"
@@ -55,12 +55,12 @@ const emit = defineEmits<{
           >
             <dl>
               <dt
-                class="text-[11px] font-semibold uppercase tracking-wider text-amber-600 dark:text-amber-400 mb-0.5"
+                class="text-[11px] font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-0.5"
               >
                 {{ prop.label }}
               </dt>
               <dd
-                class="text-slate-700 dark:text-slate-200 whitespace-pre-line leading-relaxed wrap-break-word"
+                class="text-slate-700 dark:text-slate-200 whitespace-pre-line leading-relaxed wrap-break-word text-justify"
               >
                 {{ prop.value }}
               </dd>
