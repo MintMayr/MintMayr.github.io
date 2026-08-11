@@ -4,7 +4,7 @@ import NodeComponent from './NodeComponent.vue'
 import NodePropertiesCard from './NodePropertiesCard.vue'
 import { useGraphData } from '@/composables/useGraphData.ts'
 import { computed, onMounted, reactive, ref, onBeforeUnmount } from 'vue'
-import { buildNodeChildrenMap, computeLayout } from '@/composables/useGraphLayout.ts'
+import { buildNodeChildrenMap, computeLayout, separateNodes } from '@/composables/useGraphLayout.ts'
 
 const MIN_SCALE = 0.3
 const MAX_SCALE = 3
@@ -140,6 +140,7 @@ function hasVisibleChildren(nodeId: string): boolean {
 
 function relayout() {
   computeLayout(nodes)
+  separateNodes(nodes)
 }
 
 function onReveal(childId: string) {
