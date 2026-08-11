@@ -144,7 +144,7 @@ cv:edu-tuw-bsc a schema:EducationalOrganization ;
 
 cv:proj-lidarc a cv:Project ;
     schema:name "LiDARC" ;
-    schema:description "This system provides an interactive platform for uploading, processing, and comparing\n pointcloud sets with a focus on efficient analysis and clear visual feedback. Users can \n submit data through a web-based interface, trigger a comparison, and explore the resulting \nanalyses through interactive visualizations. The system is designed to handle\ncomputationally intensive tasks in the background, allowing users to continue working\nwithout interruption while results are generated asynchronously. Created Results can be\nviewed and additionally downloaded as a Report." ;
+    schema:description "This system provides an interactive platform for uploading, processing, and comparing pointcloud sets with a focus on efficient analysis and clear visual feedback. Users can submit data through a web-based interface, trigger a comparison, and explore the resulting analyses through interactive visualizations. \n\n The system is designed to handle computationally intensive tasks in the background, allowing users to continue working without interruption while results are generated asynchronously. Created Results can be viewed and additionally downloaded as a Report." ;
     schema:url <https://github.com/BFW-Remote-Sensing/LiDARC> ;
     cv:usedSkill cv:skill-vue ;
     cv:status "Finsihed" .
