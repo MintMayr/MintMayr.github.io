@@ -34,7 +34,7 @@ const truncatedSummary = computed(() => {
     </div>
     <div class="flex-1 flex flex-col gap-4">
       <div>
-        <h3 class="text-xl font-bold text-gray-900 dark:text-slate-100">
+        <h3 class="text-xl font-bold text-slate-800 dark:text-slate-100">
           {{ t(experience.description) }}
         </h3>
         <div

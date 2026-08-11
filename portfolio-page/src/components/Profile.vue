@@ -2,6 +2,9 @@
 import { EnvelopeIcon } from '@heroicons/vue/24/outline'
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { Github, Linkedin } from '@thesvg/vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const phrases = [
   { text: 'Level: 25', font: "'Bytesized', monospace" },
@@ -84,10 +87,7 @@ onBeforeUnmount(() => {
       <img src="/profile_picture.jpg" alt="Michael Mayr" class="w-full h-full object-cover" />
     </div>
     <div class="flex flex-col items-center md:items-start w-full mb-4">
-      <span class="sr-only"
-        >Level 25 Software Engineer. I like to travel, video games, nature, and taking pictures of
-        animals.</span
-      >
+      <span class="sr-only">{{ t('general.aboutScreenReader') }}</span>
       <div
         class="pixel-text flex items-center text-slate-700 dark:text-slate-300 min-h-10"
         :style="{ fontFamily: currentFont }"
@@ -98,7 +98,9 @@ onBeforeUnmount(() => {
         ></span>
       </div>
     </div>
-    <h2 class="text-xl text-slate-700 dark:text-slate-300 font-semibold">Get in Touch:</h2>
+    <h2 class="text-xl text-slate-700 dark:text-slate-300 font-semibold">
+      {{ t('general.getInTouch') }}
+    </h2>
     <div class="flex flex-row justify-center md:justify-start items-center gap-5 w-full">
       <a
         href="https://github.com/MintMayr"

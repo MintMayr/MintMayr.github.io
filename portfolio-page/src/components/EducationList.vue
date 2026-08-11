@@ -5,7 +5,7 @@ import EducationItem from '@/components/EducationItem.vue'
 import { formatDate, sortedByDate } from '@/utils/utils.ts'
 import { useI18n } from 'vue-i18n'
 
-const { locale } = useI18n()
+const { t, locale } = useI18n()
 const educations: Education[] = [
   {
     id: 1,
@@ -92,7 +92,9 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="relative w-full mx-auto py-12 overflow-hidden">
-    <div class="text-3xl font-bold text-slate-800 dark:text-slate-100 mb-4">Education</div>
+    <div class="text-3xl font-bold text-slate-800 dark:text-slate-100 mb-4">
+      {{ t('general.educationTitle') }}
+    </div>
     <div
       class="absolute top-0 bottom-0 left-1/2 w-0.5 bg-slate-300 dark:bg-slate-700 transform -translate-x-1/2 transition-colors mask-[linear-gradient(to_bottom,transparent,black_5%,black_95%,transparent)] [-webkit-mask-image:linear-gradient(to_bottom,transparent,black_5%,black_95%,transparent)]"
     ></div>

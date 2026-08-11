@@ -19,8 +19,8 @@ const i18n = createI18n<[MessageSchema], Locales>({
   fallbackLocale: 'en',
   messages: {
     en: en,
-    de: de
-  }
+    de: de,
+  },
 })
 
 const app = createApp(App)

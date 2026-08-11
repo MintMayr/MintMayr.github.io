@@ -16,7 +16,7 @@ const isExpanded = ref(props.expand)
 
 <template>
   <div
-    class="bg-slate-50 dark:bg-slate-800 rounded-xl shadow-md overflow-hidden flex flex-col w-full transition-colors"
+    class="bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden flex flex-col w-full transition-colors"
     @click="isExpanded = !isExpanded"
   >
     <div
@@ -42,7 +42,7 @@ const isExpanded = ref(props.expand)
     <div class="p-6 flex flex-col grow">
       <div class="flex justify-between items-start gap-4 mb-4">
         <div class="flex flex-row gap-4 items-center justify-between">
-          <h3 class="text-xl font-bold text-gray-900 dark:text-slate-100">
+          <h3 class="text-xl font-bold text-slate-800 dark:text-slate-100">
             {{ t(project.title) }}
           </h3>
           <div
@@ -76,14 +76,14 @@ const isExpanded = ref(props.expand)
         :class="isExpanded ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'"
       >
         <div class="overflow-hidden">
-          <p class="text-gray-600 dark:text-slate-300 text-base pb-3">
+          <p class="text-slate-700 dark:text-slate-300 text-base pb-3">
             {{ t(project.description) }}
           </p>
         </div>
       </div>
-      <div class="flex flex-wrap gap-2 mt-auto">
+      <div class="flex flex-wrap gap-2 mt-auto pt-2">
         <p class="text-slate-400 dark:text-slate-500 font-semibold tracking-wider mt-1">
-          Used Tech / Skills:
+          {{ t('general.usedTechSkills') }}
         </p>
         <Tag v-for="tag in project.tags" :key="tag.text" :tag="tag" />
       </div>

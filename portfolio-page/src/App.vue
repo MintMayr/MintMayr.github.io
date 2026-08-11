@@ -7,6 +7,9 @@ import { SunIcon, MoonIcon, DocumentTextIcon, ShareIcon } from '@heroicons/vue/2
 import { ref } from 'vue'
 import Profile from '@/components/Profile.vue'
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const isDark = ref(
   localStorage.getItem('theme') === 'dark' ||
@@ -51,7 +54,7 @@ const toggleView = () => {
           class="w-8 h-8 text-amber-500 shrink-0"
         />
         <span class="font-medium text-slate-800 dark:text-slate-100">
-          {{ showGraph ? 'Static CV' : 'CV Graph' }}
+          {{ showGraph ? t('general.staticCV') : t('general.cvGraph') }}
         </span>
       </button>
     </div>

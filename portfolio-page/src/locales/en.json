@@ -5,7 +5,17 @@
     "readLess": "Show less",
     "readMore": "Show more...",
     "showSkills": "Show Skills",
-    "hideSkills": "Hide Skills"
+    "hideSkills": "Hide Skills",
+    "workExperience": "Work Experience",
+    "educationTitle": "Education",
+    "myProjects": "My Projects",
+    "usedTechSkills": "Used Tech / Skills:",
+    "getInTouch": "Get in Touch:",
+    "noDetails": "No details available.",
+    "closePanel": "Close panel",
+    "aboutScreenReader": "Level 25 Software Engineer. I like to travel, video games, nature, and taking pictures of animals.",
+    "staticCV": "Static CV",
+    "cvGraph": "CV Graph"
   },
   "education": {
     "tu_wien_bsc": "Bachelor of Science - BSc, Computer Science",

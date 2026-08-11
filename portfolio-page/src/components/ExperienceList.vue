@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import ExperienceItem from '@/components/ExperienceItem.vue'
 import type { Experience } from '@/types/types.ts'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const experiences: Experience[] = [
   {
@@ -74,7 +77,9 @@ const experiences: Experience[] = [
 <template>
   <div class="grid transition-all duration-300 ease-in-out">
     <div class="flex flex-col w-full divide-y-2 divide-slate-300">
-      <div class="text-3xl font-bold text-slate-800 mb-4 dark:text-slate-100">Work Experience</div>
+      <div class="text-3xl font-bold text-slate-800 mb-4 dark:text-slate-100">
+        {{ t('general.workExperience') }}
+      </div>
       <div v-for="experience in experiences" :key="experience.id" class="py-4">
         <ExperienceItem :experience="experience" />
       </div>

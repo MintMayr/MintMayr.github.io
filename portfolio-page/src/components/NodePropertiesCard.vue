@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import type { NodeProperty } from '@/types/types'
 import { XMarkIcon } from '@heroicons/vue/24/outline'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 defineProps<{
   label: string
@@ -37,7 +40,7 @@ const emit = defineEmits<{
         </h3>
         <button
           class="shrink-0 p-0.5 rounded-md text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition-colors"
-          aria-label="Close panel"
+          :aria-label="t('general.closePanel')"
           @click="emit('close')"
         >
           <XMarkIcon class="h-4 w-4" />
@@ -65,7 +68,9 @@ const emit = defineEmits<{
           </div>
         </template>
 
-        <p v-else class="italic text-slate-400 dark:text-slate-500 py-2">No details available.</p>
+        <p v-else class="italic text-slate-400 dark:text-slate-500 py-2">
+          {{ t('general.noDetails') }}
+        </p>
       </div>
     </div>
   </foreignObject>

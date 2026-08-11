@@ -5,7 +5,17 @@
     "readLess": "Weniger anzeigen",
     "readMore": "Mehr anzeigen...",
     "showSkills": "Skills anzeigen",
-    "hideSkills": "Skills minimieren"
+    "hideSkills": "Skills minimieren",
+    "workExperience": "Berufserfahrung",
+    "educationTitle": "Ausbildung",
+    "myProjects": "Meine Projekte",
+    "usedTechSkills": "Verwendete Technologien / Skills:",
+    "getInTouch": "Kontakt:",
+    "noDetails": "Keine Details verfügbar.",
+    "closePanel": "Panel schließen",
+    "aboutScreenReader": "Level 25 Software Engineer. Ich mag Reisen, Videospiele, Natur und fotografiere gerne Tiere.",
+    "staticCV": "Statischer Lebenslauf",
+    "cvGraph": "CV-Graph"
   },
   "education": {
     "tu_wien_bsc": "Bachelor of Science - BSc, Informatik",

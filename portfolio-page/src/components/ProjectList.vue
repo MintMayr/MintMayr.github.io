@@ -4,6 +4,9 @@ import type { Project } from '@/types/types.ts'
 import { ChevronDownIcon } from '@heroicons/vue/24/outline'
 import { ref } from 'vue'
 import { Github } from '@thesvg/vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const projects: Project[] = [
   {
@@ -42,8 +45,7 @@ const projects: Project[] = [
   {
     id: 3,
     title: 'project.cryptocurrency.title',
-    description:
-      'project.cryptocurrency.description',
+    description: 'project.cryptocurrency.description',
     tags: [
       { text: 'tags.cryptocurrency', color: 'blue' },
       { text: 'tags.algorithms', color: 'amber' },
@@ -78,7 +80,7 @@ const toggleProjects = () => {
       @click="toggleProjects"
       class="w-full flex items-center justify-between text-3xl font-bold cursor-pointer text-slate-800 dark:text-slate-100 mb-4 p-3 rounded-lg hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 transition-colors"
     >
-      <span>My Projects</span>
+      <span>{{ t('general.myProjects') }}</span>
       <ChevronDownIcon
         class="w-8 h-8 transition-transform duration-300"
         :class="isOpen ? 'rotate-180' : ''"
