@@ -84,7 +84,14 @@ onBeforeUnmount(() => {
     <div
       class="w-full aspect-square mb-2 shadow-lg rounded-3xl overflow-hidden border-4 border-white dark:border-slate-800 bg-slate-100 dark:bg-slate-800"
     >
-      <img src="/profile_picture.jpg" alt="Michael Mayr" class="w-full h-full object-cover" />
+      <img
+        src="/profile_picture.webp"
+        alt="Michael Mayr"
+        width="512"
+        height="512"
+        decoding="async"
+        class="w-full h-full object-cover"
+      />
     </div>
     <div class="flex flex-col items-center md:items-start w-full mb-4">
       <span class="sr-only">{{ t('general.aboutScreenReader') }}</span>

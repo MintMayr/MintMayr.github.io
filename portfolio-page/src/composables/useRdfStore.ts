@@ -11,7 +11,6 @@ const LABEL_PREDICATES = [
 const FIRST_NAME_PREDICATE = 'http://xmlns.com/foaf/0.1/firstName'
 const LAST_NAME_PREDICATE = 'http://xmlns.com/foaf/0.1/lastName'
 const LINK_PREDICATES = ['http://xmlns.com/foaf/0.1/homepage', 'http://schema.org/url']
-const DESCRIPTION_PREDICATE = 'http://schema.org/description'
 const EXCLUDED_PREDICATES = new Set([RDF_TYPE, ...LINK_PREDICATES])
 
 const LABEL_SKIP_PREDICATES = new Set([

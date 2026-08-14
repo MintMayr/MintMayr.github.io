@@ -2,12 +2,13 @@
 import ProjectList from '@/components/ProjectList.vue'
 import EducationList from '@/components/EducationList.vue'
 import ExperienceList from '@/components/ExperienceList.vue'
-import PortfolioGraph from './components/PortfolioGraph.vue'
 import { SunIcon, MoonIcon, DocumentTextIcon, ShareIcon } from '@heroicons/vue/24/outline'
-import { ref } from 'vue'
+import { defineAsyncComponent, ref } from 'vue'
 import Profile from '@/components/Profile.vue'
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 import { useI18n } from 'vue-i18n'
+
+const PortfolioGraph = defineAsyncComponent(() => import('./components/PortfolioGraph.vue'))
 
 const { t } = useI18n()
 
@@ -81,7 +82,7 @@ const toggleView = () => {
       </Transition>
       <Transition name="cv-fade">
         <div
-          v-show="showGraph"
+          v-if="showGraph"
           class="col-start-1 row-start-1 w-full h-[70vh] p-2 sm:p-3 border border-slate-300 dark:border-slate-700 rounded-2xl bg-white dark:bg-slate-800"
         >
           <PortfolioGraph class="w-full h-full" />
