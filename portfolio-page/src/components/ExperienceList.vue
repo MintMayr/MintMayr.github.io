@@ -77,7 +77,10 @@ const experiences: Experience[] = [
 <template>
   <div class="grid transition-all duration-300 ease-in-out">
     <div class="flex flex-col w-full divide-y-2 divide-slate-300">
-      <div class="text-3xl font-bold text-slate-800 mb-4 dark:text-slate-100">
+      <div
+        id="experience"
+        class="text-3xl font-bold text-slate-800 mb-4 dark:text-slate-100"
+      >
         {{ t('general.workExperience') }}
       </div>
       <div

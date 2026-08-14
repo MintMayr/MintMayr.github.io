@@ -6,6 +6,7 @@ import { SunIcon, MoonIcon, DocumentTextIcon, ShareIcon } from '@heroicons/vue/2
 import { defineAsyncComponent, ref } from 'vue'
 import Profile from '@/components/Profile.vue'
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
+import ChapterView from '@/components/ChapterView.vue'
 import { useI18n } from 'vue-i18n'
 
 const PortfolioGraph = defineAsyncComponent(() => import('./components/PortfolioGraph.vue'))
@@ -37,6 +38,9 @@ const toggleTheme = () => {
 const showGraph = ref(false)
 const toggleView = () => {
   showGraph.value = !showGraph.value
+  if (!showGraph.value) {
+    window.scrollTo({ top: 0, behavior: 'instant' })
+  }
 }
 </script>
 
@@ -44,7 +48,9 @@ const toggleView = () => {
   <main
     class="max-w-360 mx-auto p-4 grid grid-cols-[1fr_auto] md:grid-cols-[auto_1fr_auto] gap-6 items-start"
   >
-    <div class="order-1 md:order-1 flex flex-col items-center md:items-start gap-4">
+    <div
+      class="order-1 md:order-1 flex flex-col items-center md:items-start gap-4 sticky top-4 self-start"
+    >
       <Profile />
       <button
         @click="toggleView"
@@ -60,7 +66,7 @@ const toggleView = () => {
       </button>
     </div>
 
-    <div class="flex justify-end order-2 md:order-3">
+    <div class="flex justify-end order-2 md:order-3 sticky top-4 self-start">
       <div class="flex flex-col items-center gap-2">
         <button
           @click="toggleTheme"
@@ -70,6 +76,7 @@ const toggleView = () => {
           <MoonIcon v-else class="w-6 h-6" />
         </button>
         <LanguageSwitcher />
+        <ChapterView v-if="!showGraph" class="mt-2" />
       </div>
     </div>
     <div class="col-span-2 md:col-span-1 order-3 md:order-2 grid w-full">

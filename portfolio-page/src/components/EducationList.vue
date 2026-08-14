@@ -92,7 +92,10 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="relative w-full mx-auto py-12 overflow-hidden">
-    <div class="text-3xl font-bold text-slate-800 dark:text-slate-100 mb-4">
+    <div
+      id="education"
+      class="text-3xl font-bold text-slate-800 dark:text-slate-100 mb-4"
+    >
       {{ t('general.educationTitle') }}
     </div>
     <div

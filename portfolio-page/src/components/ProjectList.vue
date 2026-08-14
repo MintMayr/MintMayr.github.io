@@ -77,6 +77,7 @@ const toggleProjects = () => {
 <template>
   <div class="w-full">
     <button
+      id="projects"
       @click="toggleProjects"
       class="w-full flex items-center justify-between text-3xl font-bold cursor-pointer text-slate-800 dark:text-slate-100 mb-4 p-3 rounded-lg hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 transition-colors"
     >
